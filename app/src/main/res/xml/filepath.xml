@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <external-path path="" name="share"/>
+        <files-path path="" name="share"/>
+        <cache-path path="" name="share"/>
+        <external-cache-path path="" name="share"/>
+        <root-path path="" name="share" />
+        <external-path name="img2" path="DCIM/Camera" />
+    </paths>
+</resources>
