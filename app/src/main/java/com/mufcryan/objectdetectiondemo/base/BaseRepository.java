@@ -105,7 +105,7 @@ public abstract class BaseRepository<RequestBody, ResponseBody> {
                     BaseResponse baseResponse = new BaseResponse();
                     baseResponse.isSuccessful = false;
                     baseResponse.setStatus(errorCode);
-                    baseResponse.setMessage(errorText);
+                    baseResponse.setMsg(errorText);
                     ResponseBody responseBody = (ResponseBody) baseResponse;
                     ODApp.appExecutors.mainThread().execute(() -> liveData.setValue((ResponseBody) baseResponse));
 
@@ -133,7 +133,7 @@ public abstract class BaseRepository<RequestBody, ResponseBody> {
                     } else {
                         baseResponse.setIsNetError();
                     }
-                    baseResponse.setMessage(e.getMessage());
+                    baseResponse.setMsg(e.getMessage());
                     ResponseBody responseBody = (ResponseBody) baseResponse;
                     ODApp.appExecutors.mainThread().execute(() -> liveData.setValue((ResponseBody) baseResponse));
                 } catch (ClassCastException castException) {
