@@ -18,7 +18,7 @@ class FrameView: View {
     private lateinit var paint: Paint
     private fun init(){
         paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.BLUE
+        paint.color = Color.RED
         paint.strokeCap = Paint.Cap.SQUARE
         paint.style = Paint.Style.STROKE
     }
@@ -31,6 +31,7 @@ class FrameView: View {
 
     fun setRect(left: Int, top: Int, right: Int, bottom: Int){
         rect = Rect(left, top, right, bottom)
+        invalidate()
     }
 
     override fun onDraw(canvas: Canvas?) {

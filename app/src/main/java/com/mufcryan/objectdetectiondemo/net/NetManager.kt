@@ -1,8 +1,10 @@
 package com.mufcryan.objectdetectiondemo.net
 
 import com.mufcryan.objectdetectiondemo.net.api.DetectionApi
+import com.mufcryan.objectdetectiondemo.net.rx_calladapter.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.util.concurrent.TimeUnit
 
 object NetManager {
@@ -15,9 +17,7 @@ object NetManager {
         return detectionApi!!
     }
 
-    private fun getRetrofitClient()=Retrofit.Builder().client(getHttpBuilder())
-        .baseUrl("")
-        .build()
+    private fun getRetrofitClient() = RetrofitClient.getInstance().getDefaultRetrofit(null)
 
     private fun getHttpBuilder(): OkHttpClient{
         val builder = OkHttpClient.Builder()

@@ -2,6 +2,7 @@ package com.mufcryan.objectdetectiondemo.base
 
 import android.app.Application
 import android.content.Context
+import com.facebook.stetho.Stetho
 
 class ODApp: Application() {
     companion object {
@@ -13,5 +14,6 @@ class ODApp: Application() {
         super.onCreate()
         context = applicationContext
         appExecutors = AppExecutors.getInstance()
+        Stetho.initializeWithDefaults(this)
     }
 }

@@ -8,6 +8,7 @@ public class BaseResponse<T> {
     public int status;
     public String msg = "";
     public T data;
+    public String request_code = "";
 
     /**
      * 返回数据成功（客户端已经处理所有的异常，真正能获取到成功的数据）
