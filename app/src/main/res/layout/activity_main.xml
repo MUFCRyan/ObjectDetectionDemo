@@ -5,19 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.activity.MainActivity"
+    android:background="@mipmap/backgroud"
+    >
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="100dp"
-        android:padding="20dp"
         >
-        <ImageView
+        <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/iv_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <com.mufcryan.objectdetectiondemo.ui.FrameView
+        <com.mufcryan.objectdetectiondemo.ui.view.FrameView
             android:id="@+id/fv_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,8 +30,10 @@
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:layout_alignParentBottom="true"
+        android:background="#20000000"
         android:text="拍张照"
         android:textSize="20sp"
+        android:textColor="@android:color/white"
         />
     <Button
         android:id="@+id/btn_select"
@@ -40,8 +42,10 @@
         android:layout_margin="20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="#20000000"
         android:text="去相册"
         android:textSize="20sp"
+        android:textColor="@android:color/white"
         />
     <Button
         android:id="@+id/btn_retry"
@@ -50,7 +54,31 @@
         android:layout_margin="20dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:background="#20000000"
         android:text="重试"
         android:textSize="20sp"
+        android:textColor="@android:color/white"
         />
+    <FrameLayout
+        android:id="@+id/fl_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#60000000"
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
+        <fr.castorflex.android.circularprogressbar.CircularProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:cpb_color="#FFee44"
+            app:cpb_colors="@array/pocket_bar_colors"
+            app:cpb_rotation_speed="1.0"
+            app:cpb_sweep_speed="1.0"
+            app:cpb_stroke_width="4dp"
+            app:cpb_min_sweep_angle="100"
+            app:cpb_max_sweep_angle="300"
+            />
+    </FrameLayout>
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo
+package com.mufcryan.objectdetectiondemo.ui.activity
 
 import android.Manifest
 import android.app.Activity
@@ -12,14 +12,20 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
-import com.mufcryan.objectdetectiondemo.ui.FrameView
+import com.mufcryan.objectdetectiondemo.*
+import com.mufcryan.objectdetectiondemo.base.BaseActivity
+import com.mufcryan.objectdetectiondemo.ui.view.FrameView
 import com.mufcryan.objectdetectiondemo.util.PhotoUtil
+import com.mufcryan.objectdetectiondemo.viewmodel.DetectionViewModel
+import fr.castorflex.android.circularprogressbar.CircularProgressBar
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 import java.io.File
@@ -29,52 +35,65 @@ import java.text.SimpleDateFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 @RuntimePermissions
-class MainActivity : FragmentActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var ivPreview: ImageView
     private lateinit var frameView: FrameView
     private lateinit var btnTake: View
     private lateinit var btnSelect: View
     private lateinit var btnRetry: View
+    private lateinit var progress: CircularProgressBar
+    private lateinit var flProgress: View
     private lateinit var viewModel: DetectionViewModel
     private var filePath = ""
     private val dir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/Camera")
     private lateinit var tempFile: File
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initView()
-        initListener()
-    }
+    override fun getLayoutResId() = R.layout.activity_main
 
-    private fun initView() {
+    override fun initView() {
         viewModel = ViewModelProviders.of(this).get(DetectionViewModel::class.java)
         ivPreview = findViewById(R.id.iv_preview)
         frameView = findViewById(R.id.fv_view)
         btnTake = findViewById(R.id.btn_take)
         btnSelect = findViewById(R.id.btn_select)
         btnRetry = findViewById(R.id.btn_retry)
+        flProgress = findViewById(R.id.fl_progress)
+        progress = findViewById(R.id.progress_bar)
     }
 
-    private fun initListener() {
+    override fun initListener() {
         btnTake.setOnClickListener {
+            if(flProgress.visibility == View.VISIBLE){
+                return@setOnClickListener
+            }
             createTempFileWithPermissionCheck()
             takePhotoWithPermissionCheck()
         }
 
         btnSelect.setOnClickListener {
+            if(flProgress.visibility == View.VISIBLE){
+                return@setOnClickListener
+            }
             selectImageWithPermissionCheck()
         }
 
         btnRetry.setOnClickListener {
+            if(flProgress.visibility == View.VISIBLE){
+                return@setOnClickListener
+            }
             requestDetect(filePath)
         }
 
         viewModel.detectionResponse.observe(this, Observer {
+            flProgress.visibility = View.GONE
             if(it.isSuccessful){
-                frameView.setRect(10, 30, 310, 200)
+                loadPic(it.data.image)
             }
         })
+    }
+
+    override fun isFullScreen(): Boolean {
+        return true
     }
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -94,19 +113,24 @@ class MainActivity : FragmentActivity() {
         val camera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val uri = FileProvider.getUriForFile(this, "$packageName.fileprovider", tempFile)
         camera.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-        startActivityForResult(camera, REQUEST_CODE_CAMERA)
+        startActivityForResult(camera,
+            REQUEST_CODE_CAMERA
+        )
     }
 
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
     fun selectImage() {
         // 打开系统图库选择图片
         val picture = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(picture, REQUEST_CODE_PICTURE)
+        startActivityForResult(picture,
+            REQUEST_CODE_PICTURE
+        )
     }
 
     private fun requestDetect(filePath: String) {
+        flProgress.visibility = View.VISIBLE
+        Toast.makeText(this, "正在识别中，请稍后。。。", Toast.LENGTH_LONG).show()
         viewModel.requestDetection(filePath, filePath)
-        frameView.setRect(10, 30, 310, 200)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -119,10 +143,8 @@ class MainActivity : FragmentActivity() {
                     val uri: Uri = data!!.data
                     try {
                         val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(uri))
-                        Glide.with(ivPreview)
-                            .load(bitmap)
-                            .into(ivPreview)
                         filePath = PhotoUtil.getRealPathFromURI(uri)
+                        loadPic(filePath)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
@@ -130,21 +152,26 @@ class MainActivity : FragmentActivity() {
                 REQUEST_CODE_CAMERA -> {
                     Log.e("zfc","相机")
                     try {
-                        scanImageFile(this, tempFile)
+                        scanImageFile(
+                            this,
+                            tempFile
+                        )
                         PhotoUtil.adjustRotation(tempFile.absolutePath)
-                        val uri: Uri = Uri.fromFile(tempFile) //图片文件
-                        val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(uri))
-                        Glide.with(ivPreview)
-                            .load(bitmap)
-                            .into(ivPreview)
                         filePath = tempFile.absolutePath
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }
             }
+            loadPic(filePath)
             requestDetect(filePath)
         }
+    }
+
+    private fun loadPic(filePath: String){
+        Glide.with(ivPreview)
+            .load(filePath)
+            .into(ivPreview)
     }
 
     companion object {

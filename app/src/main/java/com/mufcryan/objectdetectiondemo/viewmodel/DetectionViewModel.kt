@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo
+package com.mufcryan.objectdetectiondemo.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

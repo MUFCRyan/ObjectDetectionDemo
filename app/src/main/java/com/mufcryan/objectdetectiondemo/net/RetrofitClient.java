@@ -34,8 +34,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static final String TAG = RetrofitClient.class.getSimpleName();
-    private static final String BASE_HOST = "http://192.168.43.20:10080"; //不应该使用base，在api中配置好
-    //private static final String BASE_HOST = "http://140.143.145.153:10080";
+    //不应该使用base，在api中配置好
+    public static final String BASE_HOST = "http://a.zhipengzhao.top:8888";
 
     private Retrofit defaultClient;
     private Retrofit cacheClient;

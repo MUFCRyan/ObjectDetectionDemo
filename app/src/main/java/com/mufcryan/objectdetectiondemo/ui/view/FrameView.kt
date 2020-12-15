@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo.ui
+package com.mufcryan.objectdetectiondemo.ui.view
 
 import android.content.Context
 import android.graphics.Canvas
