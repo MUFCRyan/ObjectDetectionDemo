@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.mufcryan.objectdetectiondemo.util.LogUtil;
+
 import org.jetbrains.annotations.NotNull;
 
 /**

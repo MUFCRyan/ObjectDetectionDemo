@@ -1,25 +1,33 @@
 package com.mufcryan.objectdetectiondemo.ui.activity
 
+import android.graphics.*
 import android.hardware.Camera
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.R
 import com.mufcryan.objectdetectiondemo.base.BaseActivity
-import permissions.dispatcher.RuntimePermissions
+import com.mufcryan.objectdetectiondemo.util.LogUtil
+import com.mufcryan.objectdetectiondemo.util.PhotoUtil
+import java.io.ByteArrayOutputStream
+
 
 class RealTimeDetectionActivity : BaseActivity() {
     private lateinit var svPreview: SurfaceView
+    private lateinit var ivPreview: ImageView
     private lateinit var btnDetect: View
     private lateinit var surfaceHolder: SurfaceHolder
     private var camera: Camera? = null
-    private var cameraId = 1
+    private var cameraId = 0
 
     override fun getLayoutResId() = R.layout.activity_real_time_detection
 
     override fun initView() {
         svPreview = findViewById(R.id.sv_preview)
+        ivPreview = findViewById(R.id.iv_preview)
         btnDetect = findViewById(R.id.btn_start_detect)
     }
 
@@ -34,6 +42,7 @@ class RealTimeDetectionActivity : BaseActivity() {
             ) {
                 camera?.let {
                     val parameters = it.parameters
+                    parameters.previewFormat = ImageFormat.NV21
                     parameters.focusMode = Camera.Parameters.FOCUS_MODE_AUTO
                     it.parameters = parameters
                     it.startPreview()
@@ -71,6 +80,30 @@ class RealTimeDetectionActivity : BaseActivity() {
                 // 绑定 Surface 并开启预览
                 it.setPreviewDisplay(surfaceHolder)
                 it.startPreview()
+                it.setPreviewCallback { data, camera ->
+                    val size = camera.parameters.previewSize
+                    try {
+                        val width = ivPreview.layoutParams.width
+                        val height = ivPreview.layoutParams.height
+                        val image = YuvImage(data, ImageFormat.NV21, size.width, size.height, null)
+                        val stream = ByteArrayOutputStream()
+                        image.compressToJpeg(Rect(0, 0, size.width, size.height), 80, stream)
+                        var bmp = BitmapFactory.decodeByteArray(
+                            stream.toByteArray(),
+                            0,
+                            stream.size()
+                        )
+                        stream.close()
+                        bmp = rotateMyBitmap(bmp, width, height)
+                        Glide.with(ivPreview)
+                            .load(bmp)
+                            .into(ivPreview)
+                    } catch (ex: java.lang.Exception) {
+                        LogUtil.e("Sys", "Error:" + ex.message)
+                    }
+
+
+                }
             }
         } catch (e: Exception) {
             releaseCamera()
@@ -99,4 +132,15 @@ class RealTimeDetectionActivity : BaseActivity() {
         stopAndRelease()
         openCamera()
     }
+
+    private fun rotateMyBitmap(bmp: Bitmap, width: Int, height: Int): Bitmap {
+        //*****旋转一下
+        val matrix = Matrix()
+        matrix.postRotate(90f)
+        val bitmap =
+            Bitmap.createBitmap(height, width, Bitmap.Config.RGB_565)
+        val nbmp2 = Bitmap.createBitmap(bmp, 0, 0, height, width, matrix, true)
+        return nbmp2
+    }
+
 }

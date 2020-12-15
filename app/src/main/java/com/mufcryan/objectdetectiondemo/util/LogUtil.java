@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo.base;
+package com.mufcryan.objectdetectiondemo.util;
 
 import android.util.Log;
 
