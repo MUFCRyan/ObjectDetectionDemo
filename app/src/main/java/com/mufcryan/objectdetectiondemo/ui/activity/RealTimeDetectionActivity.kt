@@ -10,14 +10,15 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.R
 import com.mufcryan.objectdetectiondemo.base.BaseActivity
+import com.mufcryan.objectdetectiondemo.ui.view.FrameView
 import com.mufcryan.objectdetectiondemo.util.LogUtil
-import com.mufcryan.objectdetectiondemo.util.PhotoUtil
 import java.io.ByteArrayOutputStream
 
 
 class RealTimeDetectionActivity : BaseActivity() {
     private lateinit var svPreview: SurfaceView
     private lateinit var ivPreview: ImageView
+    private lateinit var frameView: FrameView
     private lateinit var btnDetect: View
     private lateinit var surfaceHolder: SurfaceHolder
     private var camera: Camera? = null
@@ -28,6 +29,7 @@ class RealTimeDetectionActivity : BaseActivity() {
     override fun initView() {
         svPreview = findViewById(R.id.sv_preview)
         ivPreview = findViewById(R.id.iv_preview)
+        frameView = findViewById(R.id.fv_view)
         btnDetect = findViewById(R.id.btn_start_detect)
     }
 

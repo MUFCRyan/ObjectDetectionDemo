@@ -37,7 +37,6 @@ import java.text.SimpleDateFormat
 @RuntimePermissions
 class MainActivity : BaseActivity() {
     private lateinit var ivPreview: ImageView
-    private lateinit var frameView: FrameView
     private lateinit var btnTake: View
     private lateinit var btnSelect: View
     private lateinit var btnRetry: View
@@ -53,7 +52,6 @@ class MainActivity : BaseActivity() {
     override fun initView() {
         viewModel = ViewModelProviders.of(this).get(DetectionViewModel::class.java)
         ivPreview = findViewById(R.id.iv_preview)
-        frameView = findViewById(R.id.fv_view)
         btnTake = findViewById(R.id.btn_take)
         btnSelect = findViewById(R.id.btn_select)
         btnRetry = findViewById(R.id.btn_retry)
