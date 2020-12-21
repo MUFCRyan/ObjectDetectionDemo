@@ -5,30 +5,40 @@ import android.hardware.Camera
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
-import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.R
 import com.mufcryan.objectdetectiondemo.base.BaseActivity
 import com.mufcryan.objectdetectiondemo.ui.view.FrameView
+import com.mufcryan.objectdetectiondemo.util.FileUtil
 import com.mufcryan.objectdetectiondemo.util.LogUtil
+import org.pytorch.IValue
+import org.pytorch.Module
+import org.pytorch.torchvision.TensorImageUtils
 import java.io.ByteArrayOutputStream
 
 
 class RealTimeDetectionActivity : BaseActivity() {
+    companion object {
+        private const val MODEL_NAME = "res.pt"
+        private val CLASSES = intArrayOf(0, 1, 2, 3, 4, 5)
+    }
+
     private lateinit var svPreview: SurfaceView
-    private lateinit var ivPreview: ImageView
+    private lateinit var tvResult: TextView
     private lateinit var frameView: FrameView
     private lateinit var btnDetect: View
     private lateinit var surfaceHolder: SurfaceHolder
     private var camera: Camera? = null
     private var cameraId = 0
+    private var isDetect = false
+    private var module: Module? = null
 
     override fun getLayoutResId() = R.layout.activity_real_time_detection
 
     override fun initView() {
         svPreview = findViewById(R.id.sv_preview)
-        ivPreview = findViewById(R.id.iv_preview)
+        tvResult = findViewById(R.id.tv_preview)
         frameView = findViewById(R.id.fv_view)
         btnDetect = findViewById(R.id.btn_start_detect)
     }
@@ -43,11 +53,17 @@ class RealTimeDetectionActivity : BaseActivity() {
                 height: Int
             ) {
                 camera?.let {
+                    if(isCameraRelease){
+                        return@let
+                    }
                     val parameters = it.parameters
                     parameters.previewFormat = ImageFormat.NV21
                     parameters.focusMode = Camera.Parameters.FOCUS_MODE_AUTO
                     it.parameters = parameters
-                    it.startPreview()
+                    if(!isStartPreview){
+                        isStartPreview = true
+                        it.startPreview()
+                    }
                 }
             }
 
@@ -61,19 +77,39 @@ class RealTimeDetectionActivity : BaseActivity() {
         })
 
         btnDetect.setOnClickListener {
-
+            isDetect = true
         }
     }
 
     override fun initData() {
-
+        try {
+            module = Module.load(FileUtil.assetFilePath(this, MODEL_NAME))
+        } catch (e: Exception){
+            LogUtil.d("zfc", e.message)
+        }
     }
+
+    /*override fun onResume() {
+        super.onResume()
+        svPreview.postDelayed({
+            openCamera()
+        }, 100)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAndRelease()
+    }*/
 
     override fun isFullScreen(): Boolean {
         return true
     }
 
+    private var isStartPreview = false
     private fun openCamera() {
+        if(camera != null){
+            return
+        }
         try {
             // 打开摄像机
             camera = Camera.open(cameraId)
@@ -81,47 +117,51 @@ class RealTimeDetectionActivity : BaseActivity() {
                 it.setDisplayOrientation(90)
                 // 绑定 Surface 并开启预览
                 it.setPreviewDisplay(surfaceHolder)
-                it.startPreview()
                 it.setPreviewCallback { data, camera ->
-                    val size = camera.parameters.previewSize
+                    if(!isDetect || isCameraRelease){
+                        return@setPreviewCallback
+                    }
                     try {
-                        val width = ivPreview.layoutParams.width
-                        val height = ivPreview.layoutParams.height
-                        val image = YuvImage(data, ImageFormat.NV21, size.width, size.height, null)
+                        val width = 64
+                        val height = 64
+                        val image = YuvImage(data, ImageFormat.NV21, width, height, null)
                         val stream = ByteArrayOutputStream()
-                        image.compressToJpeg(Rect(0, 0, size.width, size.height), 80, stream)
+                        image.compressToJpeg(Rect(0, 0, width, height), 80, stream)
                         var bmp = BitmapFactory.decodeByteArray(
                             stream.toByteArray(),
                             0,
                             stream.size()
                         )
                         stream.close()
-                        bmp = rotateMyBitmap(bmp, width, height)
-                        Glide.with(ivPreview)
-                            .load(bmp)
-                            .into(ivPreview)
+
+                        //bmp = rotateMyBitmap(bmp, width, height)
+                        recognizeNumber(bmp)
                     } catch (ex: java.lang.Exception) {
                         LogUtil.e("Sys", "Error:" + ex.message)
                     }
 
 
                 }
+                isCameraRelease = false
             }
         } catch (e: Exception) {
+            Toast.makeText(this@RealTimeDetectionActivity, "Surface 创建失败，请重试", Toast.LENGTH_SHORT).show();
             releaseCamera()
-            Toast.makeText(this@RealTimeDetectionActivity, "Surface 创建失败，请重试", Toast.LENGTH_SHORT)
-                .show();
         }
     }
 
     private fun stopAndRelease(){
         camera?.let {
             it.stopPreview()
+            it.stopFaceDetection()
+            it.stopSmoothZoom()
             releaseCamera()
         }
     }
 
+    private var isCameraRelease = true
     private fun releaseCamera(){
+        isCameraRelease = true
         camera?.let {
             it.release()
             camera = null
@@ -139,10 +179,33 @@ class RealTimeDetectionActivity : BaseActivity() {
         //*****旋转一下
         val matrix = Matrix()
         matrix.postRotate(90f)
-        val bitmap =
-            Bitmap.createBitmap(height, width, Bitmap.Config.RGB_565)
         val nbmp2 = Bitmap.createBitmap(bmp, 0, 0, height, width, matrix, true)
         return nbmp2
     }
 
+    private var lastResult = -1
+    private fun recognizeNumber(bmp: Bitmap){
+        module?.let {
+            val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
+                bmp,
+                TensorImageUtils.TORCHVISION_NORM_MEAN_RGB,
+                TensorImageUtils.TORCHVISION_NORM_STD_RGB
+            )
+            val outputTensor = it.forward(IValue.from(inputTensor)).toTensor()
+            val scores = outputTensor.dataAsFloatArray
+            var maxScore = -Float.MAX_VALUE
+            var maxScoreIndex = -1
+            scores.forEachIndexed { index, score ->
+                if(score > maxScore){
+                    maxScore = score
+                    maxScoreIndex = index
+                }
+            }
+            val classResult = CLASSES[maxScoreIndex]
+            if(lastResult != classResult){
+                lastResult = classResult
+                tvResult.text = "识别结果：$classResult"
+            }
+        }
+    }
 }

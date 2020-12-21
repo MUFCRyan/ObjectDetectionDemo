@@ -18,14 +18,14 @@
         android:layout_height="match_parent"
         />
 
-    <ImageView
-        android:id="@+id/iv_preview"
-        android:layout_width="120dp"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+    <TextView
+        android:id="@+id/tv_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="5dp"
-        android:background="@android:color/white"
+        android:background="#20000000"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
         />
 
     <Button
