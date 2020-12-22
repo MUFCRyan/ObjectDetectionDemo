@@ -9,15 +9,24 @@
     android:background="@mipmap/backgroud"
     >
 
-    <FrameLayout
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/iv_preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <com.github.chrisbanes.photoview.PhotoView
-            android:id="@+id/iv_preview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </FrameLayout>
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="#20000000"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
 
     <Button
         android:id="@+id/btn_take"

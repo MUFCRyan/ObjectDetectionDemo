@@ -19,10 +19,6 @@ import java.io.ByteArrayOutputStream
 
 
 class RealTimeDetectionActivity : BaseActivity() {
-    companion object {
-        private const val MODEL_NAME = "res.pt"
-        private val CLASSES = intArrayOf(0, 1, 2, 3, 4, 5)
-    }
 
     private lateinit var svPreview: SurfaceView
     private lateinit var tvResult: TextView
@@ -32,7 +28,6 @@ class RealTimeDetectionActivity : BaseActivity() {
     private var camera: Camera? = null
     private var cameraId = 0
     private var isDetect = false
-    private var module: Module? = null
 
     override fun getLayoutResId() = R.layout.activity_real_time_detection
 
@@ -60,10 +55,8 @@ class RealTimeDetectionActivity : BaseActivity() {
                     parameters.previewFormat = ImageFormat.NV21
                     parameters.focusMode = Camera.Parameters.FOCUS_MODE_AUTO
                     it.parameters = parameters
-                    if(!isStartPreview){
-                        isStartPreview = true
-                        it.startPreview()
-                    }
+                    it.setPreviewDisplay(holder)
+                    it.startPreview()
                 }
             }
 
@@ -78,34 +71,28 @@ class RealTimeDetectionActivity : BaseActivity() {
 
         btnDetect.setOnClickListener {
             isDetect = true
+            Toast.makeText(this, "正在识别中", Toast.LENGTH_LONG).show()
         }
     }
 
     override fun initData() {
-        try {
-            module = Module.load(FileUtil.assetFilePath(this, MODEL_NAME))
-        } catch (e: Exception){
-            LogUtil.d("zfc", e.message)
-        }
+
     }
 
-    /*override fun onResume() {
+    override fun onResume() {
         super.onResume()
-        svPreview.postDelayed({
-            openCamera()
-        }, 100)
+        camera?.startPreview()
     }
 
     override fun onPause() {
         super.onPause()
-        stopAndRelease()
-    }*/
+        camera?.stopPreview()
+    }
 
     override fun isFullScreen(): Boolean {
         return true
     }
 
-    private var isStartPreview = false
     private fun openCamera() {
         if(camera != null){
             return
@@ -122,20 +109,16 @@ class RealTimeDetectionActivity : BaseActivity() {
                         return@setPreviewCallback
                     }
                     try {
-                        val width = 64
-                        val height = 64
-                        val image = YuvImage(data, ImageFormat.NV21, width, height, null)
-                        val stream = ByteArrayOutputStream()
-                        image.compressToJpeg(Rect(0, 0, width, height), 80, stream)
-                        var bmp = BitmapFactory.decodeByteArray(
-                            stream.toByteArray(),
-                            0,
-                            stream.size()
-                        )
-                        stream.close()
-
+                        val bmp = getSizedBitmap(data)
                         //bmp = rotateMyBitmap(bmp, width, height)
-                        recognizeNumber(bmp)
+                        val classResult = recognizeNumber(bmp)
+                        if(lastResult != classResult){
+                            lastResult = classResult
+                            if(tvResult.visibility != View.VISIBLE){
+                                tvResult.visibility = View.VISIBLE
+                            }
+                            tvResult.text = "识别结果：$classResult"
+                        }
                     } catch (ex: java.lang.Exception) {
                         LogUtil.e("Sys", "Error:" + ex.message)
                     }
@@ -181,31 +164,5 @@ class RealTimeDetectionActivity : BaseActivity() {
         matrix.postRotate(90f)
         val nbmp2 = Bitmap.createBitmap(bmp, 0, 0, height, width, matrix, true)
         return nbmp2
-    }
-
-    private var lastResult = -1
-    private fun recognizeNumber(bmp: Bitmap){
-        module?.let {
-            val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
-                bmp,
-                TensorImageUtils.TORCHVISION_NORM_MEAN_RGB,
-                TensorImageUtils.TORCHVISION_NORM_STD_RGB
-            )
-            val outputTensor = it.forward(IValue.from(inputTensor)).toTensor()
-            val scores = outputTensor.dataAsFloatArray
-            var maxScore = -Float.MAX_VALUE
-            var maxScoreIndex = -1
-            scores.forEachIndexed { index, score ->
-                if(score > maxScore){
-                    maxScore = score
-                    maxScoreIndex = index
-                }
-            }
-            val classResult = CLASSES[maxScoreIndex]
-            if(lastResult != classResult){
-                lastResult = classResult
-                tvResult.text = "识别结果：$classResult"
-            }
-        }
     }
 }

@@ -26,6 +26,10 @@
         android:background="#20000000"
         android:textSize="20sp"
         android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:visibility="gone"
+        tools:visibility="visible"
         />
 
     <Button

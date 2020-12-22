@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
@@ -37,6 +38,7 @@ import java.text.SimpleDateFormat
 @RuntimePermissions
 class MainActivity : BaseActivity() {
     private lateinit var ivPreview: ImageView
+    private lateinit var tvResult: TextView
     private lateinit var btnTake: View
     private lateinit var btnSelect: View
     private lateinit var btnRetry: View
@@ -46,12 +48,14 @@ class MainActivity : BaseActivity() {
     private var filePath = ""
     private val dir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/Camera")
     private lateinit var tempFile: File
+    private var isDetectNumber = true
 
     override fun getLayoutResId() = R.layout.activity_main
 
     override fun initView() {
         viewModel = ViewModelProviders.of(this).get(DetectionViewModel::class.java)
         ivPreview = findViewById(R.id.iv_preview)
+        tvResult = findViewById(R.id.tv_preview)
         btnTake = findViewById(R.id.btn_take)
         btnSelect = findViewById(R.id.btn_select)
         btnRetry = findViewById(R.id.btn_retry)
@@ -126,9 +130,33 @@ class MainActivity : BaseActivity() {
     }
 
     private fun requestDetect(filePath: String) {
-        flProgress.visibility = View.VISIBLE
         Toast.makeText(this, "正在识别中，请稍后。。。", Toast.LENGTH_LONG).show()
-        viewModel.requestDetection(filePath, filePath)
+        if(isDetectNumber){
+            detectNumber(filePath)
+        } else {
+            flProgress.visibility = View.VISIBLE
+            viewModel.requestDetection(filePath, filePath)
+        }
+    }
+
+    private fun detectNumber(filePath: String){
+        val data = getByteArray(filePath)
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeFile(filePath, options)
+        val bmp = if(options.outWidth > 64 || options.outHeight > 64){
+            getSizedBitmap(data)
+        } else {
+            BitmapFactory.decodeFile(filePath)
+        }
+        val classResult = recognizeNumber(bmp)
+        if(lastResult != classResult){
+            lastResult = classResult
+            if(tvResult.visibility != View.VISIBLE){
+                tvResult.visibility = View.VISIBLE
+            }
+            tvResult.text = "识别结果：$classResult"
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -140,9 +168,7 @@ class MainActivity : BaseActivity() {
                     Log.e("zfc","相册")
                     val uri: Uri = data!!.data
                     try {
-                        val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(uri))
                         filePath = PhotoUtil.getRealPathFromURI(uri)
-                        loadPic(filePath)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
