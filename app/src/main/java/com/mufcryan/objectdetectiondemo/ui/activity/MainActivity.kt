@@ -131,6 +131,7 @@ class MainActivity : BaseActivity() {
 
     private fun requestDetect(filePath: String) {
         if(isDetectNumber){
+            Toast.makeText(this, "正在识别中", Toast.LENGTH_LONG).show()
             detectNumber(filePath)
         } else {
             Toast.makeText(this, "正在识别中，请稍后。。。", Toast.LENGTH_LONG).show()

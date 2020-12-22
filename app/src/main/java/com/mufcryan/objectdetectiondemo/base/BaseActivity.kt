@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.mufcryan.objectdetectiondemo.util.FileUtil
 import com.mufcryan.objectdetectiondemo.util.LogUtil
@@ -65,8 +66,9 @@ abstract class BaseActivity: FragmentActivity() {
                         }
                         it.setPitch(1f)
                     }
+                } else {
+                    Toast.makeText(this, "缺少 TTS 引擎，请下载", Toast.LENGTH_LONG).show()
                 }
-
             }
         } catch (e: Exception){
             LogUtil.d("zfc", e.message)
