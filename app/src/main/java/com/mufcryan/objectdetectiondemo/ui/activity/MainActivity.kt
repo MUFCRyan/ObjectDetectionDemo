@@ -109,7 +109,7 @@ class MainActivity : BaseActivity() {
         tempFile.createNewFile()
     }
 
-    @NeedsPermission(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
+    @NeedsPermission(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.ACCESS_COARSE_LOCATION)
     fun takePhoto() {
         // 打开系统拍照程
         val camera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -120,7 +120,7 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.ACCESS_COARSE_LOCATION)
     fun selectImage() {
         // 打开系统图库选择图片
         val picture = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -130,10 +130,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun requestDetect(filePath: String) {
-        Toast.makeText(this, "正在识别中，请稍后。。。", Toast.LENGTH_LONG).show()
         if(isDetectNumber){
             detectNumber(filePath)
         } else {
+            Toast.makeText(this, "正在识别中，请稍后。。。", Toast.LENGTH_LONG).show()
             flProgress.visibility = View.VISIBLE
             viewModel.requestDetection(filePath, filePath)
         }
@@ -149,13 +149,16 @@ class MainActivity : BaseActivity() {
         } else {
             BitmapFactory.decodeFile(filePath)
         }
-        val classResult = recognizeNumber(bmp)
-        if(lastResult != classResult){
-            lastResult = classResult
-            if(tvResult.visibility != View.VISIBLE){
-                tvResult.visibility = View.VISIBLE
+        bmp?.let {
+            val classResult = recognizeNumber(bmp)
+            if(lastResult != classResult){
+                lastResult = classResult
+                if(tvResult.visibility != View.VISIBLE){
+                    tvResult.visibility = View.VISIBLE
+                }
+                tvResult.text = "识别结果：$classResult"
             }
-            tvResult.text = "识别结果：$classResult"
+            speakNumber(classResult)
         }
     }
 

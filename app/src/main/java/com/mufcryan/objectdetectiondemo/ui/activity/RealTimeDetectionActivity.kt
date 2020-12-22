@@ -1,26 +1,26 @@
 package com.mufcryan.objectdetectiondemo.ui.activity
 
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.ImageFormat
+import android.graphics.Matrix
 import android.hardware.Camera
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.R
 import com.mufcryan.objectdetectiondemo.base.BaseActivity
 import com.mufcryan.objectdetectiondemo.ui.view.FrameView
-import com.mufcryan.objectdetectiondemo.util.FileUtil
 import com.mufcryan.objectdetectiondemo.util.LogUtil
-import org.pytorch.IValue
-import org.pytorch.Module
-import org.pytorch.torchvision.TensorImageUtils
-import java.io.ByteArrayOutputStream
 
 
 class RealTimeDetectionActivity : BaseActivity() {
 
     private lateinit var svPreview: SurfaceView
+    private lateinit var ivPreview: ImageView
     private lateinit var tvResult: TextView
     private lateinit var frameView: FrameView
     private lateinit var btnDetect: View
@@ -36,6 +36,7 @@ class RealTimeDetectionActivity : BaseActivity() {
         tvResult = findViewById(R.id.tv_preview)
         frameView = findViewById(R.id.fv_view)
         btnDetect = findViewById(R.id.btn_start_detect)
+        ivPreview = findViewById(R.id.iv_preview)
     }
 
     override fun initListener() {
@@ -48,7 +49,7 @@ class RealTimeDetectionActivity : BaseActivity() {
                 height: Int
             ) {
                 camera?.let {
-                    if(isCameraRelease){
+                    if (isCameraRelease) {
                         return@let
                     }
                     val parameters = it.parameters
@@ -93,6 +94,7 @@ class RealTimeDetectionActivity : BaseActivity() {
         return true
     }
 
+    private var isDetecting = false
     private fun openCamera() {
         if(camera != null){
             return
@@ -105,19 +107,28 @@ class RealTimeDetectionActivity : BaseActivity() {
                 // 绑定 Surface 并开启预览
                 it.setPreviewDisplay(surfaceHolder)
                 it.setPreviewCallback { data, camera ->
-                    if(!isDetect || isCameraRelease){
+                    if(!isDetect || isCameraRelease || isDetecting){
                         return@setPreviewCallback
                     }
+                    isDetecting = true
+                    ivPreview.postDelayed({
+                        isDetecting = false
+                    }, 1000)
                     try {
-                        val bmp = getSizedBitmap(data)
-                        //bmp = rotateMyBitmap(bmp, width, height)
-                        val classResult = recognizeNumber(bmp)
-                        if(lastResult != classResult){
-                            lastResult = classResult
-                            if(tvResult.visibility != View.VISIBLE){
-                                tvResult.visibility = View.VISIBLE
+                        val size = it.parameters.previewSize
+                        val bmp = getSizedBitmap(data, size.width, size.height)
+                        bmp?.let { bitmap ->
+                            /*Glide.with(ivPreview)
+                                .load(bitmap)
+                                .into(ivPreview)*/
+                            val classResult = recognizeNumber(bitmap)
+                            if(lastResult != classResult){
+                                lastResult = classResult
+                                if(tvResult.visibility != View.VISIBLE){
+                                    tvResult.visibility = View.VISIBLE
+                                }
+                                tvResult.text = "识别结果：$classResult"
                             }
-                            tvResult.text = "识别结果：$classResult"
                         }
                     } catch (ex: java.lang.Exception) {
                         LogUtil.e("Sys", "Error:" + ex.message)
@@ -156,13 +167,5 @@ class RealTimeDetectionActivity : BaseActivity() {
         cameraId = if (cameraId == 1) 0 else 1
         stopAndRelease()
         openCamera()
-    }
-
-    private fun rotateMyBitmap(bmp: Bitmap, width: Int, height: Int): Bitmap {
-        //*****旋转一下
-        val matrix = Matrix()
-        matrix.postRotate(90f)
-        val nbmp2 = Bitmap.createBitmap(bmp, 0, 0, height, width, matrix, true)
-        return nbmp2
     }
 }

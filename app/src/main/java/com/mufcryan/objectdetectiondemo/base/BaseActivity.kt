@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.Window
 import android.view.WindowManager
 import androidx.fragment.app.FragmentActivity
@@ -14,7 +15,10 @@ import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
 import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
+import java.io.IOException
 import java.io.InputStream
+import java.util.*
+
 
 abstract class BaseActivity: FragmentActivity() {
     companion object {
@@ -30,6 +34,8 @@ abstract class BaseActivity: FragmentActivity() {
 
     private var module: Module? = null
     protected var lastResult = -1
+    private var tts: TextToSpeech? = null
+    protected var isSupportChinese = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +53,32 @@ abstract class BaseActivity: FragmentActivity() {
     private fun loadModule(){
         try {
             module = Module.load(FileUtil.assetFilePath(this, MODEL_NAME))
+            tts = TextToSpeech(applicationContext) { status ->
+                if(status == TextToSpeech.SUCCESS){
+                    tts?.let {
+                        val result = it.setLanguage(Locale.CHINESE)
+                        if(result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA){
+                            it.language = Locale.US
+                            isSupportChinese = false
+                        } else {
+                            isSupportChinese = true
+                        }
+                        it.setPitch(1f)
+                    }
+                }
+
+            }
         } catch (e: Exception){
             LogUtil.d("zfc", e.message)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        tts?.let {
+            it.stop()
+            it.shutdown()
+            tts = null
         }
     }
 
@@ -71,17 +101,34 @@ abstract class BaseActivity: FragmentActivity() {
         return data
     }
 
-    protected fun getSizedBitmap(data: ByteArray, width: Int = 64, height: Int = 64): Bitmap{
-        val image = YuvImage(data, ImageFormat.NV21, width, height, null)
-        val stream = ByteArrayOutputStream()
-        image.compressToJpeg(Rect(0, 0, width, height), 80, stream)
-        val bmp = BitmapFactory.decodeByteArray(
-            stream.toByteArray(),
-            0,
-            stream.size()
-        )
-        stream.close()
-        return bmp
+    protected fun getSizedBitmap(data: ByteArray, width: Int = 64, height: Int = 64): Bitmap?{
+        return nv21ToBitmap(data, width, height)
+    }
+
+    protected fun nv21ToBitmap(nv21: ByteArray, width: Int, height: Int): Bitmap? {
+        var bitmap: Bitmap? = null
+        try {
+            val image = YuvImage(nv21, ImageFormat.NV21, width, height, null)
+            val stream = ByteArrayOutputStream()
+            image.compressToJpeg(Rect(0, 0, width, height), 100, stream)
+            //将rawImage转换成bitmap
+            val options = BitmapFactory.Options()
+            options.inPreferredConfig = Bitmap.Config.RGB_565
+            bitmap = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size(), options)
+            bitmap = Bitmap.createScaledBitmap(bitmap, 64, 64,true)
+            bitmap = rotateMyBitmap(bitmap)
+            stream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return bitmap
+    }
+
+    private fun rotateMyBitmap(bmp: Bitmap): Bitmap {
+        //*****旋转一下
+        val m = Matrix()
+        m.postRotate(90f)
+        return Bitmap.createBitmap(bmp, 0, 0, bmp.width, bmp.height, m, true)
     }
 
     protected fun recognizeNumber(bmp: Bitmap): Int{
@@ -104,6 +151,17 @@ abstract class BaseActivity: FragmentActivity() {
             return CLASSES[maxScoreIndex]
         }
         return -1
+    }
+
+    protected fun speakNumber(number: Int){
+        tts?.let {
+            val text = if(isSupportChinese){
+                "识别结果为$number"
+            } else {
+                "The result of detect is $number"
+            }
+            it.speak(text, TextToSpeech.QUEUE_FLUSH, null)
+        }
     }
 
     protected fun openActivity(clazz: Class<Activity>){

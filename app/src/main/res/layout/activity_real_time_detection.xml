@@ -44,4 +44,13 @@
         android:textSize="20sp"
         android:textColor="@android:color/white"
         />
+
+    <ImageView
+        android:id="@+id/iv_preview"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:background="#FFFFFF"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
 </RelativeLayout>
