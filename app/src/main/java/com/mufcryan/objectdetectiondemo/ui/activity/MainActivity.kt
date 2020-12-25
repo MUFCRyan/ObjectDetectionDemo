@@ -7,23 +7,19 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.MediaScannerConnection
 import android.net.Uri
-import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.FileProvider
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.*
 import com.mufcryan.objectdetectiondemo.base.BaseActivity
-import com.mufcryan.objectdetectiondemo.ui.view.FrameView
 import com.mufcryan.objectdetectiondemo.util.PhotoUtil
 import com.mufcryan.objectdetectiondemo.viewmodel.DetectionViewModel
 import fr.castorflex.android.circularprogressbar.CircularProgressBar
@@ -141,12 +137,15 @@ class MainActivity : BaseActivity() {
     }
 
     private fun detectNumber(filePath: String){
-        val data = getByteArray(filePath)
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(filePath, options)
         val bmp = if(options.outWidth > 64 || options.outHeight > 64){
-            getSizedBitmap(data)
+            val bitmap = getSquareBitmap(filePath, options.outWidth, options.outHeight)
+            Glide.with(ivPreview)
+                .load(bitmap)
+                .into(ivPreview)
+            createScaledBitmap(bitmap)
         } else {
             BitmapFactory.decodeFile(filePath)
         }
@@ -191,7 +190,9 @@ class MainActivity : BaseActivity() {
                     }
                 }
             }
-            loadPic(filePath)
+            if(!isDetectNumber){
+                loadPic(filePath)
+            }
             requestDetect(filePath)
         }
     }

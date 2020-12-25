@@ -39,6 +39,10 @@ class RealTimeDetectionActivity : BaseActivity() {
         ivPreview = findViewById(R.id.iv_preview)
     }
 
+    private var wantPictureWidth = -1
+    private var wantPictureHeight = -1
+    private var wantPreviewWidth = -1
+    private var wantPreviewHeight = -1
     override fun initListener() {
         surfaceHolder = svPreview.holder
         surfaceHolder.addCallback(object : SurfaceHolder.Callback {
@@ -55,6 +59,41 @@ class RealTimeDetectionActivity : BaseActivity() {
                     val parameters = it.parameters
                     parameters.previewFormat = ImageFormat.NV21
                     parameters.focusMode = Camera.Parameters.FOCUS_MODE_AUTO
+                    if(wantPreviewWidth < 0 || wantPreviewHeight < 0){
+                        val supportedPreviewSizes = parameters.supportedPreviewSizes
+                        supportedPreviewSizes.forEach {size ->
+                            if(size.width == size.height){
+                                if(wantPreviewWidth < 0){
+                                    wantPreviewWidth = size.width
+                                    wantPreviewHeight = size.height
+                                } else if(wantPreviewWidth > size.width){
+                                    wantPreviewWidth = size.width
+                                    wantPreviewHeight = size.height
+                                }
+                            }
+                        }
+                        svPreview.layoutParams?.let { params ->
+                            params.width = wantPreviewWidth
+                            params.height = wantPreviewHeight
+                            svPreview.requestLayout()
+                        }
+                    }
+                    parameters.setPreviewSize(wantPreviewWidth, wantPreviewHeight)
+                    if(wantPictureWidth < 0 || wantPictureHeight < 0){
+                        val supportedPictureSizes = parameters.supportedPictureSizes
+                        supportedPictureSizes.forEach {size ->
+                            if(size.width == size.height){
+                                if(wantPictureWidth < 0){
+                                    wantPictureWidth = size.width
+                                    wantPictureHeight = size.height
+                                } else if(wantPictureWidth > size.width){
+                                    wantPictureWidth = size.width
+                                    wantPictureHeight = size.height
+                                }
+                            }
+                        }
+                    }
+                    parameters.setPictureSize(wantPictureWidth, wantPictureHeight)
                     it.parameters = parameters
                     it.setPreviewDisplay(holder)
                     it.startPreview()

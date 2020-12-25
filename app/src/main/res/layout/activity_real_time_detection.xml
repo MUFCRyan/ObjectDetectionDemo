@@ -10,7 +10,9 @@
     <SurfaceView
         android:id="@+id/sv_preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
 
     <com.mufcryan.objectdetectiondemo.ui.view.FrameView
         android:id="@+id/fv_view"

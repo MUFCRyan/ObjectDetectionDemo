@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.nio.ByteBuffer
 import java.util.*
 
 
@@ -84,6 +85,33 @@ abstract class BaseActivity: FragmentActivity() {
         }
     }
 
+    private var regionDecoder: BitmapRegionDecoder? = null
+    protected fun getSquareBitmap(filePath: String, width: Int, height: Int): Bitmap{
+        val inputStream = FileInputStream(filePath)
+        regionDecoder = BitmapRegionDecoder.newInstance(inputStream, true)
+        val short: Int
+        val long: Int
+        val isWidthShort: Boolean
+        if(width <= height){
+            short = width
+            long = height
+            isWidthShort = true
+        } else {
+            short = height
+            long = width
+            isWidthShort = false
+        }
+        val longCenter = long/2
+        val longStart = longCenter - short/2
+        val longEnd = longCenter + short/2
+        val rect = if(isWidthShort){
+            Rect(0, longStart, short, longEnd)
+        } else {
+            Rect(longStart, 0, longEnd, short)
+        }
+        return regionDecoder!!.decodeRegion(rect, null)
+    }
+
     protected fun getByteArray(filePath: String): ByteArray{
         val inputStream = FileInputStream(filePath)
         return readStream(inputStream)
@@ -117,13 +145,19 @@ abstract class BaseActivity: FragmentActivity() {
             val options = BitmapFactory.Options()
             options.inPreferredConfig = Bitmap.Config.RGB_565
             bitmap = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size(), options)
-            bitmap = Bitmap.createScaledBitmap(bitmap, 64, 64,true)
+            bitmap = createScaledBitmap(bitmap)
             bitmap = rotateMyBitmap(bitmap)
             stream.close()
         } catch (e: IOException) {
             e.printStackTrace()
         }
         return bitmap
+    }
+
+    protected fun createScaledBitmap(bitmap: Bitmap?): Bitmap {
+        var bitmap1 = bitmap
+        bitmap1 = Bitmap.createScaledBitmap(bitmap1, 64, 64, true)
+        return bitmap1
     }
 
     private fun rotateMyBitmap(bmp: Bitmap): Bitmap {
