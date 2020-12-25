@@ -24,7 +24,7 @@ import java.util.*
 
 abstract class BaseActivity: FragmentActivity() {
     companion object {
-        private const val MODEL_NAME = "res.pt"
+        private const val MODEL_NAME = "build.pt"
         val CLASSES = intArrayOf(0, 1, 2, 3, 4, 5)
     }
 
