@@ -152,7 +152,7 @@ class RealTimeDetectionActivity : BaseActivity() {
                     isDetecting = true
                     ivPreview.postDelayed({
                         isDetecting = false
-                    }, 1000)
+                    }, 500)
                     try {
                         val size = it.parameters.previewSize
                         val bmp = getSizedBitmap(data, size.width, size.height)
