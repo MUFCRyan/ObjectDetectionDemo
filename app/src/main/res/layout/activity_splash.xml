@@ -30,5 +30,7 @@
         android:text="实时视频检测"
         android:textSize="20sp"
         android:textColor="@android:color/white"
+        android:visibility="gone"
+        tools:visibility="visible"
         />
 </RelativeLayout>

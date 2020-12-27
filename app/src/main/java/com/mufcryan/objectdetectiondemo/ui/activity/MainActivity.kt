@@ -44,7 +44,6 @@ class MainActivity : BaseActivity() {
     private var filePath = ""
     private val dir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/Camera")
     private lateinit var tempFile: File
-    private var isDetectNumber = true
 
     override fun getLayoutResId() = R.layout.activity_main
 

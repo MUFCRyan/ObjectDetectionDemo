@@ -38,6 +38,7 @@ abstract class BaseActivity: FragmentActivity() {
     protected var lastResult = -1
     private var tts: TextToSpeech? = null
     protected var isSupportChinese = false
+    protected var isDetectNumber = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +54,9 @@ abstract class BaseActivity: FragmentActivity() {
     }
 
     private fun loadModule(){
+        if(!isDetectNumber){
+            return
+        }
         try {
             module = Module.load(FileUtil.assetFilePath(this, MODEL_NAME))
             tts = TextToSpeech(applicationContext) { status ->
