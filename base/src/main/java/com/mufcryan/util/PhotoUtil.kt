@@ -1,7 +1,6 @@
-package com.mufcryan.objectdetectiondemo.util
+package com.mufcryan.util
 
 import android.content.Context
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -10,7 +9,6 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
-import com.mufcryan.objectdetectiondemo.base.ODApp
 import java.io.FileOutputStream
 import java.io.IOException
 
@@ -30,7 +28,7 @@ object PhotoUtil {
      * @param path 照片路径
      * @return 角度
      */
-    private fun readPictureDegree(path: String?): Int {
+    private fun readPictureDegree(path: String): Int {
         var degree = 0
         try {
             val exifInterface = ExifInterface(path)
@@ -108,7 +106,7 @@ object PhotoUtil {
         //不能直接调用contentprovider的接口函数，需要使用contentresolver对象，通过URI间接调用contentprovider
         if (cursor == null) {
             // Source is Dropbox or other similar local file path
-            result = contentURI.path
+            result = contentURI.path ?: ""
         } else {
             cursor.moveToFirst()
             val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)

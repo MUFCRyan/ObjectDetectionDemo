@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mufcryan.objectdetectiondemo.base;
+package com.mufcryan.base;
 
 import android.os.Handler;
 import android.os.Looper;

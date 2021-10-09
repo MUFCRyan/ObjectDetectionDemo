@@ -9,8 +9,8 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import com.mufcryan.objectdetectiondemo.util.FileUtil
-import com.mufcryan.objectdetectiondemo.util.LogUtil
+import com.mufcryan.util.FileUtil
+import com.mufcryan.util.LogUtil
 import org.pytorch.IValue
 import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
@@ -18,7 +18,6 @@ import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
-import java.nio.ByteBuffer
 import java.util.*
 
 

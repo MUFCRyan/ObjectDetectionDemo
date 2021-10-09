@@ -2,7 +2,7 @@ package com.mufcryan.objectdetectiondemo.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mufcryan.objectdetectiondemo.base.BaseResponse
+import com.mufcryan.base.BaseResponse
 import com.mufcryan.objectdetectiondemo.bean.DetectionRequest
 import com.mufcryan.objectdetectiondemo.bean.DetectionResponse
 import com.mufcryan.objectdetectiondemo.repository.DetectionRepository

@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.*
 import com.mufcryan.objectdetectiondemo.base.BaseActivity
 import com.mufcryan.objectdetectiondemo.base.ODApp
-import com.mufcryan.objectdetectiondemo.util.PhotoUtil
+import com.mufcryan.util.PhotoUtil
 import com.mufcryan.objectdetectiondemo.viewmodel.DetectionViewModel
 import fr.castorflex.android.circularprogressbar.CircularProgressBar
 import permissions.dispatcher.NeedsPermission

@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo.util
+package com.mufcryan.util
 
 import android.content.Context
 import java.io.File

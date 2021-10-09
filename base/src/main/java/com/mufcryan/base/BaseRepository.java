@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo.base;
+package com.mufcryan.base;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -7,7 +7,8 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.mufcryan.objectdetectiondemo.util.LogUtil;
+import com.mufcryan.BaseApp;
+import com.mufcryan.util.LogUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -84,13 +85,7 @@ public abstract class BaseRepository<RequestBody, ResponseBody> {
         RequestCallback<ResponseBody> callBack = new RequestCallback<ResponseBody>() {
             @Override
             public void onSuccess(ResponseBody data) {
-                ODApp.appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        liveData.setValue(data);
-                    }
-                });
-
+                liveData.postValue(data);
             }
 
             public boolean dealFailure(BaseResponse response) {
@@ -109,7 +104,7 @@ public abstract class BaseRepository<RequestBody, ResponseBody> {
                     baseResponse.setStatus(errorCode);
                     baseResponse.setMsg(errorText);
                     ResponseBody responseBody = (ResponseBody) baseResponse;
-                    ODApp.appExecutors.mainThread().execute(() -> liveData.setValue((ResponseBody) baseResponse));
+                    liveData.postValue((ResponseBody) baseResponse);
 
                 } catch (ClassCastException e) {
                     e.printStackTrace();
@@ -120,9 +115,9 @@ public abstract class BaseRepository<RequestBody, ResponseBody> {
             @Override
             public void onError(Throwable e) {
                 if (requestBody != null) {
-                    Toast.makeText(ODApp.context, requestBody.toString() + "\nonError cause :" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(BaseApp.context, requestBody.toString() + "\nonError cause :" + e.toString(), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(ODApp.context, "onError cause :" + e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(BaseApp.context, "onError cause :" + e.toString(), Toast.LENGTH_LONG).show();
                 }
                 // 网络请求本身失败的回调
                 try {
@@ -130,14 +125,14 @@ public abstract class BaseRepository<RequestBody, ResponseBody> {
                     // BaseResponse 类型
                     BaseResponse baseResponse = new BaseResponse();
                     baseResponse.isSuccessful = false;
-                    if (isNetworkConnected(ODApp.context)) {
+                    if (isNetworkConnected(BaseApp.context)) {
                         baseResponse.setIsServerError();
                     } else {
                         baseResponse.setIsNetError();
                     }
                     baseResponse.setMsg(e.getMessage());
                     ResponseBody responseBody = (ResponseBody) baseResponse;
-                    ODApp.appExecutors.mainThread().execute(() -> liveData.setValue((ResponseBody) baseResponse));
+                    liveData.postValue((ResponseBody) baseResponse);
                 } catch (ClassCastException castException) {
                     // ResponseBody 不是 BaseResponse 类型，不做进一步处理
                 }

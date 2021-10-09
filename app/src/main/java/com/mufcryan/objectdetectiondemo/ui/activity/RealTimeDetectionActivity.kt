@@ -1,8 +1,6 @@
 package com.mufcryan.objectdetectiondemo.ui.activity
 
-import android.graphics.Bitmap
 import android.graphics.ImageFormat
-import android.graphics.Matrix
 import android.hardware.Camera
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -10,11 +8,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.R
 import com.mufcryan.objectdetectiondemo.base.BaseActivity
 import com.mufcryan.objectdetectiondemo.ui.view.FrameView
-import com.mufcryan.objectdetectiondemo.util.LogUtil
+import com.mufcryan.util.LogUtil
 
 
 class RealTimeDetectionActivity : BaseActivity() {

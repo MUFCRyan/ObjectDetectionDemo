@@ -1,7 +1,7 @@
 package com.mufcryan.objectdetectiondemo.repository
 
-import com.mufcryan.objectdetectiondemo.base.BaseRepository
-import com.mufcryan.objectdetectiondemo.base.BaseResponse
+import com.mufcryan.base.BaseRepository
+import com.mufcryan.base.BaseResponse
 import com.mufcryan.objectdetectiondemo.bean.DetectionRequest
 import com.mufcryan.objectdetectiondemo.bean.DetectionResponse
 import com.mufcryan.objectdetectiondemo.net.NetManager

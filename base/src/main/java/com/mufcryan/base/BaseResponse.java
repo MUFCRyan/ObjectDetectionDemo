@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo.base;
+package com.mufcryan.base;
 
 public class BaseResponse<T> {
     public final static int Success = 100000;

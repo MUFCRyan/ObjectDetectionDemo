@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo.base;
+package com.mufcryan.base;
 
 /**
  * Created by zhaofengchun on 2018/7/25.
