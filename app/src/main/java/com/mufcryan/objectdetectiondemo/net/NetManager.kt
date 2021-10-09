@@ -1,10 +1,8 @@
 package com.mufcryan.objectdetectiondemo.net
 
+import com.mufcryan.net.RetrofitClient
 import com.mufcryan.objectdetectiondemo.net.api.DetectionApi
-import com.mufcryan.objectdetectiondemo.net.rx_calladapter.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.util.concurrent.TimeUnit
 
 object NetManager {

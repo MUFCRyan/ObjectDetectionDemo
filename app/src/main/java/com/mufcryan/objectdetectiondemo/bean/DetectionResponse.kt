@@ -1,6 +1,6 @@
 package com.mufcryan.objectdetectiondemo.bean
 
-import com.mufcryan.objectdetectiondemo.net.RetrofitClient.BASE_HOST
+import com.mufcryan.net.RetrofitClient.BASE_HOST
 
 class DetectionResponse {
     var image = ""

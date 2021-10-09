@@ -1,4 +1,4 @@
-package com.mufcryan.objectdetectiondemo.net.rx_calladapter;
+package com.mufcryan.net.rx_calladapter;
 
 /*
  * Copyright (C) 2016 Jake Wharton

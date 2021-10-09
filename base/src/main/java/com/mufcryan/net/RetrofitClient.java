@@ -1,9 +1,9 @@
-package com.mufcryan.objectdetectiondemo.net;
+package com.mufcryan.net;
 
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mufcryan.objectdetectiondemo.net.rx_calladapter.RxJava3CallAdapterFactory;
+import com.mufcryan.net.rx_calladapter.RxJava3CallAdapterFactory;
 
 import java.security.KeyStore;
 import java.security.SecureRandom;
