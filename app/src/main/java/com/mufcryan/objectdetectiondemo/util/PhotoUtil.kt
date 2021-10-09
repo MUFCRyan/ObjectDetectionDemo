@@ -1,5 +1,6 @@
 package com.mufcryan.objectdetectiondemo.util
 
+import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -101,9 +102,9 @@ object PhotoUtil {
         }
     }
 
-    fun getRealPathFromURI(contentURI: Uri): String {
+    fun getRealPathFromURI(context: Context, contentURI: Uri): String {
         val result: String
-        val cursor = ODApp.context.contentResolver.query(contentURI, null, null, null, null)
+        val cursor = context.contentResolver.query(contentURI, null, null, null, null)
         //不能直接调用contentprovider的接口函数，需要使用contentresolver对象，通过URI间接调用contentprovider
         if (cursor == null) {
             // Source is Dropbox or other similar local file path

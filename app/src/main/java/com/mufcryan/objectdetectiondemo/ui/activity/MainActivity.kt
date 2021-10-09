@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.*
 import com.mufcryan.objectdetectiondemo.base.BaseActivity
+import com.mufcryan.objectdetectiondemo.base.ODApp
 import com.mufcryan.objectdetectiondemo.util.PhotoUtil
 import com.mufcryan.objectdetectiondemo.viewmodel.DetectionViewModel
 import fr.castorflex.android.circularprogressbar.CircularProgressBar
@@ -170,7 +171,7 @@ class MainActivity : BaseActivity() {
                     Log.e("zfc","相册")
                     val uri: Uri = data!!.data
                     try {
-                        filePath = PhotoUtil.getRealPathFromURI(uri)
+                        filePath = PhotoUtil.getRealPathFromURI(ODApp.context, uri)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
