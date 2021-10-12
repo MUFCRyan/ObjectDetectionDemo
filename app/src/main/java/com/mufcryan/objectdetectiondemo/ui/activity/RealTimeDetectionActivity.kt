@@ -42,9 +42,9 @@ class RealTimeDetectionActivity : BaseModelActivity() {
     private var wantPreviewHeight = -1
     override fun initListener() {
         surfaceHolder = svPreview.holder
-        surfaceHolder.addCallback(object : SurfaceHolder.Callback {
+        surfaceHolder.addCallback(object : SurfaceHolder.Callback2 {
             override fun surfaceChanged(
-                holder: SurfaceHolder?,
+                holder: SurfaceHolder,
                 format: Int,
                 width: Int,
                 height: Int
@@ -97,12 +97,16 @@ class RealTimeDetectionActivity : BaseModelActivity() {
                 }
             }
 
-            override fun surfaceDestroyed(holder: SurfaceHolder?) {
+            override fun surfaceDestroyed(holder: SurfaceHolder) {
                 stopAndRelease()
             }
 
-            override fun surfaceCreated(holder: SurfaceHolder?) {
+            override fun surfaceCreated(holder: SurfaceHolder) {
                 openCamera()
+            }
+
+            override fun surfaceRedrawNeeded(holder: SurfaceHolder) {
+
             }
         })
 

@@ -8,6 +8,7 @@ import com.mufcryan.objectdetectiondemo.net.NetManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -24,7 +25,10 @@ class DetectionRepository: BaseRepository<DetectionRequest, BaseResponse<Detecti
             // create RequestBody instance from file
             val parts = ArrayList<MultipartBody.Part>()
             val file = File(param.filePath)
-            val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            val requestFile: RequestBody = RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(),
+                file
+            )
             val body = MultipartBody.Part.createFormData("image_file", file.name, requestFile)
             parts.add(body)
             NetManager.getDetectionApi()
@@ -52,6 +56,6 @@ class DetectionRepository: BaseRepository<DetectionRequest, BaseResponse<Detecti
     }
 
     private fun convertToRequestBody(param: String): RequestBody {
-        return RequestBody.create(MediaType.parse("text/plain"), param)
+        return RequestBody.create("text/plain".toMediaTypeOrNull(), param)
     }
 }

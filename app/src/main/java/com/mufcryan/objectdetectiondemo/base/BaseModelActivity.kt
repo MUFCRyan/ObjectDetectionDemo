@@ -144,7 +144,7 @@ abstract class BaseModelActivity: BaseActivity() {
         return bitmap
     }
 
-    protected fun createScaledBitmap(bitmap: Bitmap?): Bitmap {
+    protected fun createScaledBitmap(bitmap: Bitmap): Bitmap {
         var bitmap1 = bitmap
         bitmap1 = Bitmap.createScaledBitmap(bitmap1, 64, 64, true)
         return bitmap1

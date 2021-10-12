@@ -169,7 +169,7 @@ class MainActivity : BaseModelActivity() {
             when (requestCode) {
                 REQUEST_CODE_PICTURE -> {
                     Log.e("zfc","相册")
-                    val uri: Uri = data!!.data
+                    val uri: Uri = data!!.data!!
                     try {
                         filePath = PhotoUtil.getRealPathFromURI(ODApp.context, uri)
                     } catch (e: IOException) {

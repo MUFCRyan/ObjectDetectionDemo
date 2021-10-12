@@ -9,3 +9,7 @@
 .externalNativeBuild
 .cxx
 /app/release
+/app/build
+/abstract/build
+/buildSrc/.gradle
+/buildSrc/build
