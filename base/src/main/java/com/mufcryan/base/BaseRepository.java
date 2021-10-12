@@ -94,7 +94,7 @@ public abstract class BaseRepository<RequestBody, ResponseBody> {
 
             @Override
             public void onFailure(int errorCode, String errorText) {
-                LogUtil.e("kami", "onFailure :" + errorCode + " " + errorText);
+                LogUtil.INSTANCE.e("kami", "onFailure :" + errorCode + " " + errorText);
                 // 网络请求成功、但是 status 错误时的回调
                 try {
                     // 因为实在无法获取到 ResponseBody 的类型，只能通过强转是否产生转换异常来判断，不产生异常代表 ResponseBody 是

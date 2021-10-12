@@ -1,14 +1,16 @@
 package com.mufcryan.objectdetectiondemo.base
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.BitmapRegionDecoder
+import android.graphics.ImageFormat
+import android.graphics.Matrix
+import android.graphics.Rect
+import android.graphics.YuvImage
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
+import com.mufcryan.base.BaseActivity
 import com.mufcryan.util.FileUtil
 import com.mufcryan.util.LogUtil
 import org.pytorch.IValue
@@ -20,18 +22,11 @@ import java.io.IOException
 import java.io.InputStream
 import java.util.*
 
-
-abstract class BaseActivity: FragmentActivity() {
+abstract class BaseModelActivity: BaseActivity() {
     companion object {
         private const val MODEL_NAME = "build.pt"
         val CLASSES = intArrayOf(0, 1, 2, 3, 4, 5)
     }
-
-    protected abstract fun getLayoutResId(): Int
-    protected open fun initView(){}
-    protected open fun initListener(){}
-    protected open fun initData(){}
-    protected open fun isFullScreen() = false
 
     private var module: Module? = null
     protected var lastResult = -1
@@ -40,16 +35,8 @@ abstract class BaseActivity: FragmentActivity() {
     protected var isDetectNumber = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if(isFullScreen()){
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        }
-        setContentView(getLayoutResId())
         loadModule()
-        initView()
-        initListener()
-        initData()
+        super.onCreate(savedInstanceState)
     }
 
     private fun loadModule(){
@@ -89,7 +76,7 @@ abstract class BaseActivity: FragmentActivity() {
     }
 
     private var regionDecoder: BitmapRegionDecoder? = null
-    protected fun getSquareBitmap(filePath: String, width: Int, height: Int): Bitmap{
+    protected fun getSquareBitmap(filePath: String, width: Int, height: Int): Bitmap {
         val inputStream = FileInputStream(filePath)
         regionDecoder = BitmapRegionDecoder.newInstance(inputStream, true)
         val short: Int
@@ -201,10 +188,5 @@ abstract class BaseActivity: FragmentActivity() {
             }
             it.speak(text, TextToSpeech.QUEUE_FLUSH, null)
         }
-    }
-
-    protected fun openActivity(clazz: Class<Activity>){
-        val intent = Intent(this, clazz)
-        startActivity(intent)
     }
 }

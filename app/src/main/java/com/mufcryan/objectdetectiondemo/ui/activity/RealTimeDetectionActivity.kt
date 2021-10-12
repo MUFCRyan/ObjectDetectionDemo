@@ -9,12 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.mufcryan.objectdetectiondemo.R
-import com.mufcryan.objectdetectiondemo.base.BaseActivity
+import com.mufcryan.objectdetectiondemo.base.BaseModelActivity
 import com.mufcryan.objectdetectiondemo.ui.view.FrameView
 import com.mufcryan.util.LogUtil
 
 
-class RealTimeDetectionActivity : BaseActivity() {
+class RealTimeDetectionActivity : BaseModelActivity() {
 
     private lateinit var svPreview: SurfaceView
     private lateinit var ivPreview: ImageView

@@ -1,16 +1,14 @@
 package com.mufcryan.objectdetectiondemo.ui.activity
 
 import android.Manifest
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import com.mufcryan.objectdetectiondemo.R
-import com.mufcryan.objectdetectiondemo.base.BaseActivity
+import com.mufcryan.objectdetectiondemo.base.BaseModelActivity
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
 @RuntimePermissions
-class SplashActivity : BaseActivity() {
+class SplashActivity : BaseModelActivity() {
     private lateinit var btnPhotoDetect: View
     private lateinit var btnVideoDetect: View
 

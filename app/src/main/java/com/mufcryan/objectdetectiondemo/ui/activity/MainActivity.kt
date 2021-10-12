@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.mufcryan.objectdetectiondemo.*
-import com.mufcryan.objectdetectiondemo.base.BaseActivity
+import com.mufcryan.objectdetectiondemo.base.BaseModelActivity
 import com.mufcryan.objectdetectiondemo.base.ODApp
 import com.mufcryan.util.PhotoUtil
 import com.mufcryan.objectdetectiondemo.viewmodel.DetectionViewModel
@@ -33,7 +33,7 @@ import java.text.SimpleDateFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 @RuntimePermissions
-class MainActivity : BaseActivity() {
+class MainActivity : BaseModelActivity() {
     private lateinit var ivPreview: ImageView
     private lateinit var tvResult: TextView
     private lateinit var btnTake: View
