@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:tools="http://schemas.android.com/tools">
+  <ImageView
+    android:id="@+id/iv_tip"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center"
+    />
+  <TextView
+    android:id="@+id/tv_tip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:textSize="15sp"
+    android:textColor="@color/cardview_light_background"
+    tools:text="网络错误，请稍后重试"
+    android:layout_gravity="center"
+    android:layout_marginTop="100dp"
+    android:background="@drawable/shape_exception_page"
+    />
+</merge>

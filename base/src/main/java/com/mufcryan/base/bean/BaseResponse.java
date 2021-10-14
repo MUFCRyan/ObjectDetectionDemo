@@ -1,4 +1,4 @@
-package com.mufcryan.base;
+package com.mufcryan.base.bean;
 
 public class BaseResponse<T> {
     public final static int Success = 100000;

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  tools:context=".main.MainActivity">
+
+  <FrameLayout
+    android:id="@+id/fl_search_bar"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginStart="14dp"
+    android:layout_marginEnd="14dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    >
+    <TextView
+      android:id="@+id/tv_search"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="10dp"
+      android:paddingStart="20dp"
+      android:paddingEnd="20dp"
+      android:background="@drawable/shape_search_bar"
+      android:gravity="center_vertical"
+      android:hint="搜索..."
+      />
+  </FrameLayout>
+
+  <View
+    android:id="@+id/view_top_divider"
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/fl_search_bar"
+    android:background="@color/cardview_dark_background"
+    />
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintTop_toBottomOf="@id/view_top_divider"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+  <com.mufcryan.base.ui.ExceptionPageView
+    android:id="@+id/view_exception_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

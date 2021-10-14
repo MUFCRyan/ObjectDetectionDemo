@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.library'
+    id 'com.android.application'
     id 'kotlin-android'
 }
 
@@ -7,13 +7,13 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
+        applicationId "com.mufcryan.anabstract"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -35,19 +35,12 @@ dependencies {
 
     implementation Libs.core_ktx
     implementation Libs.appcompat
-    implementation Libs.material
-    implementation Libs.recyclerview
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation Libs.constraint_layout
+    implementation project(path: ':base')
     testImplementation Libs.junit
     androidTestImplementation Libs.ext_junit
     androidTestImplementation Libs.espresso_core
 
-    // opensource third-jar
-    implementation Libs.rxbinding
-    implementation Libs.rxjava
-    implementation Libs.rxandroid
-    implementation Libs.okhttp
-    implementation Libs.retrofit
-    implementation Libs.adapter_rxjava2
-    implementation Libs.converter_gson
-    implementation Libs.gson
+    implementation Libs.recyclerview
 }

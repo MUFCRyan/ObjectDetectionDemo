@@ -9,7 +9,7 @@ object Versions {
   const val kotlin = "1.4.30"
   const val core_ktx = "1.3.2"
   const val appcompat = "1.2.0"
-  const val constraintlayout = "2.1.1"
+  const val constraint_layout = "2.1.1"
   const val material = "1.3.0"
   const val retrofit = "2.9.0"
   const val multidex = "2.0.1"
@@ -28,10 +28,10 @@ object Versions {
   const val glide_compiler = "4.8.0"
   const val glide_transformations = "4.0.1"
   const val stetho = "1.5.0"
-  const val permissionsdispatcher = "4.8.0"
-  const val permissionsdispatcher_processor = "4.8.0"
-  const val smoothprogressbar_library = "1.1.0"
-  const val smoothprogressbar_library_circular = "1.3.0"
+  const val permissions_dispatcher = "4.8.0"
+  const val permissions_dispatcher_processor = "4.8.0"
+  const val smooth_progressbar_library = "1.1.0"
+  const val smooth_progressbar_library_circular = "1.3.0"
   const val photo_view = "2.3.0"
   const val pytorch_android = "1.7.0"
   const val pytorch_android_torchvision = "1.7.0"
@@ -45,7 +45,7 @@ object Libs {
   const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
   const val core_ktx = "androidx.core:core-ktx:1.3.2:${Versions.core_ktx}"
   const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
-  const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
+  const val constraint_layout = "androidx.constraintlayout:constraintlayout:${Versions.constraint_layout}"
   const val material = "com.google.android.material:material:${Versions.material}"
   const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
   const val multidex = "androidx.multidex:multidex:${Versions.multidex}"
@@ -53,6 +53,10 @@ object Libs {
   const val lifecycle_runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle_runtime_ktx}"
   const val lifecycle_extensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle_extensions}"
   const val kotlin_stdlib_jdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin_stdlib_jdk7}"
+
+  const val junit = "junit:junit:${Versions.junit}"
+  const val ext_junit = "androidx.test.ext:junit:${Versions.ext_junit}"
+  const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
 
   // opensource third-jar
   const val rxbinding = "com.jakewharton.rxbinding2:rxbinding:${Versions.rxbinding}"
@@ -69,19 +73,13 @@ object Libs {
   // Stetho
   const val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
 
-  const val permissionsdispatcher = "org.permissionsdispatcher:permissionsdispatcher:${Versions.permissionsdispatcher}"
-  const val permissionsdispatcher_processor = "org.permissionsdispatcher:permissionsdispatcher-processor:${Versions.permissionsdispatcher_processor}"
+  const val permissions_dispatcher = "org.permissionsdispatcher:permissionsdispatcher:${Versions.permissions_dispatcher}"
+  const val permissions_dispatcher_processor = "org.permissionsdispatcher:permissionsdispatcher-processor:${Versions.permissions_dispatcher_processor}"
 
-  const val smoothprogressbar_library = "com.github.castorflex.smoothprogressbar:library:${Versions.smoothprogressbar_library}"
-  const val smoothprogressbar_library_circular = "com.github.castorflex.smoothprogressbar:library-circular:${Versions.smoothprogressbar_library_circular}"
+  const val smooth_progressbar_library = "com.github.castorflex.smoothprogressbar:library:${Versions.smooth_progressbar_library}"
+  const val smooth_progressbar_library_circular = "com.github.castorflex.smoothprogressbar:library-circular:${Versions.smooth_progressbar_library_circular}"
   const val photo_view = "com.github.chrisbanes:PhotoView:${Versions.photo_view}"
   // pytorch
   const val pytorch_android = "org.pytorch:pytorch_android:${Versions.pytorch_android}"
   const val pytorch_android_torchvision = "org.pytorch:pytorch_android_torchvision:${Versions.pytorch_android_torchvision}"
-}
-
-object TestLibs {
-  const val junit = "junit:junit:${Versions.junit}"
-  const val ext_junit = "androidx.test.ext:junit:${Versions.ext_junit}"
-  const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
 }

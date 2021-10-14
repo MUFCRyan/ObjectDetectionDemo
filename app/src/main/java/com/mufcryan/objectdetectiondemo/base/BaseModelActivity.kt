@@ -10,7 +10,7 @@ import android.graphics.YuvImage
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
-import com.mufcryan.base.BaseActivity
+import com.mufcryan.base.ui.BaseActivity
 import com.mufcryan.util.FileUtil
 import com.mufcryan.util.LogUtil
 import org.pytorch.IValue

@@ -65,11 +65,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation Libs.kotlin_stdlib
     implementation Libs.appcompat
-    implementation Libs.constraintlayout
+    implementation Libs.constraint_layout
     implementation project(path: ':base')
-    testImplementation TestLibs.junit
-    androidTestImplementation TestLibs.ext_junit
-    androidTestImplementation TestLibs.espresso_core
+    testImplementation Libs.junit
+    androidTestImplementation Libs.ext_junit
+    androidTestImplementation Libs.espresso_core
     implementation Libs.multidex
     implementation Libs.recyclerview
     implementation Libs.lifecycle_runtime_ktx
@@ -92,12 +92,12 @@ dependencies {
     // Stetho
     implementation Libs.stetho
 
-    implementation Libs.permissionsdispatcher
-    kapt Libs.permissionsdispatcher_processor
+    implementation Libs.permissions_dispatcher
+    kapt Libs.permissions_dispatcher_processor
 
-    implementation Libs.smoothprogressbar_library
+    implementation Libs.smooth_progressbar_library
     // or
-    implementation Libs.smoothprogressbar_library_circular
+    implementation Libs.smooth_progressbar_library_circular
     implementation Libs.photo_view
 
     implementation Libs.pytorch_android

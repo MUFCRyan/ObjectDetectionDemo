@@ -1,4 +1,4 @@
-package com.mufcryan.base
+package com.mufcryan.base.ui
 
 import android.app.Activity
 import android.content.Intent

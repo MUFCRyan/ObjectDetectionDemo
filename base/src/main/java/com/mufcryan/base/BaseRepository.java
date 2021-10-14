@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 
 import com.mufcryan.BaseApp;
+import com.mufcryan.base.bean.BaseResponse;
 import com.mufcryan.util.LogUtil;
 
 import org.jetbrains.annotations.NotNull;
