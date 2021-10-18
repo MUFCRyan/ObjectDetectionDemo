@@ -1,10 +1,6 @@
 package com.mufcryan.net;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.mufcryan.net.rx_calladapter.RxJava3CallAdapterFactory;
-
 import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
@@ -15,12 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.mufcryan.net.rx_calladapter.RxJava3CallAdapterFactory;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

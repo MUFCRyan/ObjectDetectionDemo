@@ -21,6 +21,16 @@ class ExceptionPageView: FrameLayout {
     ivTip = findViewById(R.id.iv_tip)
     tvTip = findViewById(R.id.tv_tip)
     updateByPageType()
+
+    initListener()
+  }
+
+  private fun initListener() {
+    tvTip.setOnClickListener {
+      if(pageType == PageType.ERROR){
+        onExceptionBtnClickListener?.onClick(it)
+      }
+    }
   }
 
   private fun updateByPageType() {
@@ -42,6 +52,11 @@ class ExceptionPageView: FrameLayout {
   fun setPageType(type: PageType){
     pageType = type
     updateByPageType()
+  }
+
+  private var onExceptionBtnClickListener: OnClickListener? = null
+  fun setOnExceptionBtnClickListener(listener: OnClickListener?){
+    onExceptionBtnClickListener = listener
   }
 
   enum class PageType{

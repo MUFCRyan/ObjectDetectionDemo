@@ -1,21 +1,21 @@
 package com.mufcryan.base.ui
 
 import android.content.Context
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BasePagingActivity<Data, Holder: RecyclerView.ViewHolder>: BaseActivity() {
   private lateinit var recyclerView: RecyclerView
-  private lateinit var exceptionPageView: ExceptionPageView
+
   private lateinit var adapter: BaseAdapter<Data, Holder>
   var canLoadMore = true
   override fun initView() {
+    super.initView()
     recyclerView = provideRecyclerView()
-    exceptionPageView = provideExceptionPageView()
   }
 
   override fun initListener() {
+    super.initListener()
     val layoutManager = provideLayoutManager(this)
     recyclerView.layoutManager = layoutManager
     adapter = provideRecyclerAdapter()
@@ -37,29 +37,33 @@ abstract class BasePagingActivity<Data, Holder: RecyclerView.ViewHolder>: BaseAc
         }
       }
     })
-
-    // TODO 监听 exceptionPageView 重试按钮的点击
   }
 
   abstract fun provideRecyclerView(): RecyclerView
 
-  abstract fun provideExceptionPageView(): ExceptionPageView
-
   abstract fun provideRecyclerAdapter(): BaseAdapter<Data, Holder>
 
-  fun provideLayoutManager(context: Context) = LinearLayoutManager(context)
+  protected open fun provideLayoutManager(context: Context) = LinearLayoutManager(context)
 
-  fun onRefresh(){
+  fun hasData() = adapter.list.isNotEmpty()
+
+  override fun onReloadData() {
+    super.onReloadData()
+    onRefresh()
+  }
+
+  protected open fun onRefresh(){
     canLoadMore = true
   }
 
-  fun onLoadMore(){}
+  protected open fun onLoadMore(){}
 
   protected fun onRefreshSucceed(list: List<Data>){
     adapter.setList(list)
     if(adapter.list.isEmpty()){
       onShowEmptyPage()
     }
+    onEndLoadData()
   }
 
   protected fun onRefreshFailure(){
@@ -68,25 +72,16 @@ abstract class BasePagingActivity<Data, Holder: RecyclerView.ViewHolder>: BaseAc
     } else {
       showErrorToast()
     }
+    onEndLoadData()
   }
 
   protected fun onLoadMoreSucceed(list: List<Data>){
     adapter.addList(list)
+    onEndLoadData()
   }
 
   protected fun onLoadMoreFailure(){
     showErrorToast()
-  }
-
-  fun showErrorToast(){
-    Toast.makeText(this, "网络异常，请稍后重试", Toast.LENGTH_SHORT).show()
-  }
-
-  protected fun onShowErrorPage(){
-    exceptionPageView.setPageType(ExceptionPageView.PageType.ERROR)
-  }
-
-  protected fun onShowEmptyPage(){
-    exceptionPageView.setPageType(ExceptionPageView.PageType.EMPTY)
+    onEndLoadData()
   }
 }

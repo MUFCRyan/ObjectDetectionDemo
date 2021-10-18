@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="status_bar">#999999</color>
+    <color name="black">#000000</color>
+    <color name="gary">#fff5f5f5</color>
+
+    <!--#########################################新的规则############################################-->
+    <!--#################################### 安卓视觉规范颜色值 #####################################-->
+
+    <!-- 透明度对应二进制 -->
+    <!-- 5%=0D 10%=1A 20%=33 30%=4D 40%=66 44%=6F 50%=80 60%=99 70%=B3 80%=CC 85%=D9 90%=E6 95%=F2 -->
+
+    <!-- 日间颜色 白色在文档中标为Blk_12 -->
+    <color name="Ylw_1">#FDD536</color>
+    <color name="Ylw_2">#FFBC2F</color>
+    <color name="Ylw_3">#E7C332</color>
+    <color name="Red_1">#EE2F10</color>
+    <!--文档暂无RED_2-->
+    <color name="Red_2">#FF644B</color>
+    <color name="Red_3">#ED5D49</color>
+    <color name="Blu_1">#3D5699</color>
+    <color name="Blu_2">#3B87F9</color>
+    <color name="Blk_1">#000000</color>
+    <color name="Blk_2">#454545</color>
+    <color name="Blk_3">#737781</color>
+    <color name="Blk_4">#929292</color>
+    <color name="Blk_5">#B1B1B1</color>
+    <color name="Blk_6">#DADADA</color>
+    <color name="Blk_7">#E4E4E4</color>
+    <color name="Blk_8">#F5F5F5</color>
+    <color name="Blk_9">#F1F1F1</color>
+    <color name="Blk_10">#F2F2F2</color>
+    <color name="Blk_11">#F9F9F9</color>
+    <color name="Blk_12">#FFFFFF</color>
+
+    <color name="Ylw_1_alpha_30">#4DFDD536</color>
+    <color name="Ylw_1_alpha_40">#66FDD536</color>
+    <color name="Ylw_2_alpha_10">#1AFFBC2F</color>
+    <color name="Ylw_2_alpha_30">#4DFFBC2F</color>
+    <color name="Ylw_3_alpha_30">#4DE7C332</color>
+    <color name="Red_1_alpha_30">#4DEE2F10</color>
+    <color name="Red_2_alpha_30">#4DFF644B</color>
+    <color name="Red_3_alpha_30">#4DED5D49</color>
+    <color name="Blu_1_alpha_30">#4D3D5699</color>
+    <color name="Blu_2_alpha_30">#4D3B87F9</color>
+    <color name="Blk_1_alpha_5">#0D000000</color>
+    <color name="Blk_1_alpha_10">#1A000000</color>
+    <color name="Blk_1_alpha_20">#33000000</color>
+    <color name="Blk_1_alpha_30">#4D000000</color>
+    <color name="Blk_1_alpha_40">#66000000</color>
+    <color name="Blk_1_alpha_44">#6F000000</color>
+    <color name="Blk_1_alpha_50">#80000000</color>
+    <color name="Blk_1_alpha_60">#99000000</color>
+    <color name="Blk_1_alpha_70">#B2000000</color>
+    <color name="Blk_1_alpha_80">#CC000000</color>
+    <color name="Blk_1_alpha_85">#D9000000</color>
+
+    <color name="Blk_2_alpha_30">#4D454545</color>
+    <color name="Blk_3_alpha_30">#4D737781</color>
+    <color name="Blk_3_alpha_60">#9A3A3A3A</color>
+    <color name="Blk_4_alpha_30">#4D929292</color>
+    <color name="Blk_4_alpha_70">#B2929292</color>
+    <color name="Blk_5_alpha_30">#4DB1B1B1</color>
+    <color name="Blk_6_alpha_30">#4DDADADA</color>
+    <color name="Blk_6_alpha_50">#80B1B1B1</color>
+    <color name="Blk_7_alpha_30">#4DE4E4E4</color>
+    <color name="Blk_8_alpha_30">#4DF5F5F5</color>
+    <color name="Blk_8_alpha_60">#9AF5F5F5</color>
+    <color name="Blk_8_alpha_50">#80F5F5F5</color>
+    <color name="Blk_9_alpha_30">#4DF1F1F1</color>
+    <color name="Blk_10_alpha_20">#33F2F2F2</color>
+    <color name="Blk_10_alpha_30">#4DF2F2F2</color>
+    <color name="Blk_10_alpha_60">#9EF2F2F2</color>
+    <color name="Blk_10_alpha_80">#CCF2F2F2</color>
+    <color name="Blk_11_alpha_30">#4DF9F9F9</color>
+    <color name="Blk_11_alpha_50">#80FFFFFF</color>
+    <color name="Blk_11_alpha_80">#CCFFFFFF</color>
+    <color name="Blk_11_alpha_85">#D9FFFFFF</color>
+    <color name="Blk_11_alpha_90">#E6FFFFFF</color>
+    <color name="Blk_11_alpha_95">#F2FFFFFF</color>
+    <color name="Blk_11_alpha_97">#F9FFFFFF</color>
+    <color name="Blk_12_alpha_30">#4DFFFFFF</color>
+    <color name="Blk_12_alpha_40">#66FFFFFF</color>
+    <color name="Blk_12_alpha_70">#B3FFFFFF</color>
+    <color name="Blk_12_alpha_60">#99FFFFFF</color>
+    <color name="Blk_13_alpha_30">#4DE7E8E9</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_alpha_50">#00000000</color>
+    <color name="black_alpha_80">#cc000000</color>
+    <color name="white">@color/Blk_12</color>
+    <color name="white_alpha_40">#66FFFFFF</color>
+    <color name="white_alpha_70">#B3FFFFFF</color>
+    <color name="white_alpha_30">#4DFFFFFF</color>
+    <color name="maskparty_btn">#FFD8F6</color>
+    <color name="maskparty_btn_alpha_40">#66FFD8F6</color>
+    <color name="maskparty_navibar_bg">#000A4D</color>
+
+    <color name="Bg_1">#EAEAEA</color>
+    <!-- LoadingView的颜色 -->
+    <color name="loading_dark">#B4B5B7</color>
+    <color name="loading_dark_night">#3F3F3F</color>
+    <color name="loading_light">#CCCDCE</color>
+    <color name="loading_light_night">#5E5E5E</color>
+    <color name="default_long_ring_light">@color/Blk_5</color>
+    <color name="default_short_ring_light">#C7C7C7</color>
+    <color name="loading_view_background_light">#CCf1f1f1</color>
+    <color name="default_short_ring_night">#3f3f3f</color>
+    <color name="loading_view_background_night">#CC2e2e2e</color>
+
+    <color name="dark_background_long_ring_light">@color/Blk_11</color>
+    <color name="dark_background_short_ring_light">#ebebeb</color>
+    <color name="dark_background_short_ring_night">#5e5e5e</color>
+    <color name="chat_msg_pic_border">#fade6e</color>
+    <drawable name="Blk_9">#F1F1F1</drawable>
+    <drawable name="Blk_7">#E4E4E4</drawable>
+    <drawable name="transparent">#00000000</drawable>
+
+
+    <!--#########################################结束新的规则#########################################-->
+
+
+    <!--Crop View start-->
+    <color name="ucrop_color_default_crop_grid">#80ffffff</color>
+    <color name="ucrop_color_default_crop_frame">#ffffff</color>
+    <color name="ucrop_color_default_dimmed">#8c000000</color>
+    <color name="ucrop_color_default_logo">#4f212121</color>
+    <!--Crop View end-->
+
+    <!--maskparty start-->
+    <color name="mask_party_pop_text">#FFD8F6</color>
+    <color name="mask_party_pop_bg">#150038</color>
+    <!--maskparty end-->
+
+</resources>

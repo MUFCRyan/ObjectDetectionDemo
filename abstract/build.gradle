@@ -4,12 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion BuildVersion.compileSdk
+    buildToolsVersion BuildVersion.buildTools
 
     defaultConfig {
         applicationId "com.mufcryan.anabstract"
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdkVersion BuildVersion.minSdk
+        targetSdkVersion BuildVersion.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -43,4 +44,16 @@ dependencies {
     androidTestImplementation Libs.espresso_core
 
     implementation Libs.recyclerview
+    implementation Libs.rxbinding
+    implementation Libs.rxjava
+    implementation Libs.rxandroid
+    implementation Libs.okhttp
+    implementation Libs.retrofit
+    implementation Libs.adapter_rxjava2
+    implementation Libs.converter_gson
+    implementation Libs.gson
+
+    implementation Libs.glide
+    implementation Libs.glide_compiler
+    implementation Libs.glide_transformations
 }

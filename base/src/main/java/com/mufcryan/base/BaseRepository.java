@@ -1,17 +1,16 @@
 package com.mufcryan.base;
 
+import org.jetbrains.annotations.NotNull;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.mufcryan.BaseApp;
 import com.mufcryan.base.bean.BaseResponse;
 import com.mufcryan.util.LogUtil;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by zhaofengchun on 2018/7/25.
@@ -95,7 +94,7 @@ public abstract class BaseRepository<RequestBody, ResponseBody> {
 
             @Override
             public void onFailure(int errorCode, String errorText) {
-                LogUtil.INSTANCE.e("kami", "onFailure :" + errorCode + " " + errorText);
+                LogUtil.e("zfc", "onFailure :" + errorCode + " " + errorText);
                 // 网络请求成功、但是 status 错误时的回调
                 try {
                     // 因为实在无法获取到 ResponseBody 的类型，只能通过强转是否产生转换异常来判断，不产生异常代表 ResponseBody 是

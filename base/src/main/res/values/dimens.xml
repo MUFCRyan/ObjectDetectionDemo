@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--文字大小规范 start-->
+    <!--文字大小规范 start-->
+    <!--文字大小规范 start-->
+    <dimen name="T_1">54dp</dimen>
+    <dimen name="T_2">22dp</dimen>
+    <dimen name="T_3">20dp</dimen>
+    <dimen name="T_4">18dp</dimen>
+    <dimen name="T_5">16dp</dimen>
+    <dimen name="T_6">15dp</dimen>
+    <dimen name="T_7">14dp</dimen>
+    <dimen name="T_8">13dp</dimen>
+    <dimen name="T_9">12dp</dimen>
+    <dimen name="T_10">11dp</dimen>
+    <dimen name="T_11">10dp</dimen>
+    <dimen name="T_12">9dp</dimen>
+    <!--文字大小规范 end-->
+    <!--文字大小规范 end-->
+    <!--文字大小规范 end-->
+    <!--头像大小规范 start-->
+    <!--头像大小规范 start-->
+    <!--头像大小规范 start-->
+    <dimen name="Bal_1">18dp</dimen>
+    <dimen name="Bal_2">22dp</dimen>
+    <dimen name="Bal_3">34dp</dimen>
+    <dimen name="Bal_4">40dp</dimen>
+    <dimen name="Bal_5">46dp</dimen>
+    <dimen name="Bal_6">54dp</dimen>
+    <dimen name="Bal_7">68dp</dimen>
+    <dimen name="Bal_8">90dp</dimen>
+    <!--头像大小规范 end-->
+    <!--头像大小规范 end-->
+    <!--头像大小规范 end-->
+    <dimen name="drawable_padding_7">7dp</dimen>
+    <dimen name="drawable_padding_2">2dp</dimen>
+
+    <dimen name="ucrop_default_crop_frame_stoke_width">1dp</dimen>
+    <dimen name="ucrop_default_crop_grid_stoke_width">1dp</dimen>
+</resources>

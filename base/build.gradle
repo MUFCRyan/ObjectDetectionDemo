@@ -4,11 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion BuildVersion.compileSdk
+    buildToolsVersion BuildVersion.buildTools
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdkVersion BuildVersion.minSdk
+        targetSdkVersion BuildVersion.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -36,6 +37,7 @@ dependencies {
     implementation Libs.core_ktx
     implementation Libs.appcompat
     implementation Libs.material
+    implementation Libs.swipe_refresh_layout
     implementation Libs.recyclerview
     testImplementation Libs.junit
     androidTestImplementation Libs.ext_junit

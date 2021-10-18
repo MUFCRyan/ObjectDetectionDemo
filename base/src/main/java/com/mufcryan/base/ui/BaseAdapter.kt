@@ -2,7 +2,7 @@ package com.mufcryan.base.ui
 
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapter<Data, Holder: RecyclerView.ViewHolder>: RecyclerView.Adapter<Holder>() {
+abstract class BaseAdapter<Data, Holder: RecyclerView.ViewHolder>(): RecyclerView.Adapter<Holder>() {
   var list = ArrayList<Data>()
   override fun getItemCount() = list.size
 

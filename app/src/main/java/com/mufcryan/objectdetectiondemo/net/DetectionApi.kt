@@ -1,6 +1,6 @@
-package com.mufcryan.objectdetectiondemo.net.api
+package com.mufcryan.objectdetectiondemo.net
 
-import com.mufcryan.base.BaseResponse
+import com.mufcryan.base.bean.BaseResponse
 import com.mufcryan.objectdetectiondemo.bean.DetectionResponse
 import io.reactivex.Observable
 import okhttp3.MultipartBody

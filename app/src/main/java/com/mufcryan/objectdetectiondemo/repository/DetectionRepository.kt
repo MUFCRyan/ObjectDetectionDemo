@@ -1,13 +1,13 @@
 package com.mufcryan.objectdetectiondemo.repository
 
 import com.mufcryan.base.BaseRepository
-import com.mufcryan.base.BaseResponse
+import com.mufcryan.base.bean.BaseResponse
 import com.mufcryan.objectdetectiondemo.bean.DetectionRequest
 import com.mufcryan.objectdetectiondemo.bean.DetectionResponse
-import com.mufcryan.objectdetectiondemo.net.NetManager
+import com.mufcryan.net.NetManager
+import com.mufcryan.objectdetectiondemo.net.DetectionApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -31,7 +31,7 @@ class DetectionRepository: BaseRepository<DetectionRequest, BaseResponse<Detecti
             )
             val body = MultipartBody.Part.createFormData("image_file", file.name, requestFile)
             parts.add(body)
-            NetManager.getDetectionApi()
+            NetManager.getApi(DetectionApi::class.java)
                 .uploadPicture(HashMap(), parameters, parts)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

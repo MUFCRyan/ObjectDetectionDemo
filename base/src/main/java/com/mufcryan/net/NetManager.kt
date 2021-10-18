@@ -1,18 +1,19 @@
-package com.mufcryan.objectdetectiondemo.net
+package com.mufcryan.net
 
-import com.mufcryan.net.RetrofitClient
-import com.mufcryan.objectdetectiondemo.net.api.DetectionApi
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
 object NetManager {
-    private var detectionApi: DetectionApi? = null
-    fun getDetectionApi(): DetectionApi {
-        detectionApi?.let {
-            return it
+    private val apiCache = HashMap<Any, Any>()
+
+    fun <T: Any> getApi(apiClass: Class<T>): T {
+        val create = if(apiCache.containsKey(apiClass) && apiCache[apiClass] != null){
+            apiCache[apiClass]
+        } else {
+            getRetrofitClient().create(apiClass)
         }
-        detectionApi = getRetrofitClient().create(DetectionApi::class.java)
-        return detectionApi!!
+        apiCache[apiClass] = create!!
+        return create as T
     }
 
     private fun getRetrofitClient() = RetrofitClient.getInstance().getDefaultRetrofit(null)

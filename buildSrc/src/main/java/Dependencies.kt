@@ -10,6 +10,7 @@ object Versions {
   const val core_ktx = "1.3.2"
   const val appcompat = "1.2.0"
   const val constraint_layout = "2.1.1"
+  const val swipe_refresh_layout = "1.1.0"
   const val material = "1.3.0"
   const val retrofit = "2.9.0"
   const val multidex = "2.0.1"
@@ -43,9 +44,10 @@ object Versions {
 
 object Libs {
   const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
-  const val core_ktx = "androidx.core:core-ktx:1.3.2:${Versions.core_ktx}"
+  const val core_ktx = "androidx.core:core-ktx:${Versions.core_ktx}"
   const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
   const val constraint_layout = "androidx.constraintlayout:constraintlayout:${Versions.constraint_layout}"
+  const val swipe_refresh_layout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipe_refresh_layout}"
   const val material = "com.google.android.material:material:${Versions.material}"
   const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
   const val multidex = "androidx.multidex:multidex:${Versions.multidex}"
@@ -60,7 +62,7 @@ object Libs {
 
   // opensource third-jar
   const val rxbinding = "com.jakewharton.rxbinding2:rxbinding:${Versions.rxbinding}"
-  const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}}"
+  const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
   const val rxandroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid}"
   const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
   const val adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:${Versions.adapter_rxjava2}"

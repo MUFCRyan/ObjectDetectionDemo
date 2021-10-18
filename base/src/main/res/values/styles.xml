@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Transparent" parent="android:Theme">
+        <!--将Activity的Theme设置成透明-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <!--ToastModel相关style-->
+    <style name="anim_toast_new">
+        <item name="android:windowEnterAnimation">@anim/anim_toast_enter_new</item>
+        <item name="android:windowExitAnimation">@anim/anim_toast_exit_new</item>
+    </style>
+
+    <style name="anim_toast">
+        <item name="android:windowEnterAnimation">@anim/toast_top_in_show_sns</item>
+        <item name="android:windowExitAnimation">@anim/toast_top_out_hide_sns</item>
+    </style>
+
+    <style name="anim_toast_center">
+        <item name="android:windowEnterAnimation">@anim/anim_toast_appear</item>
+        <item name="android:windowExitAnimation">@anim/anim_toast_disappear</item>
+    </style>
+
+    <style name="center_toast_text">
+        <item name="android:textColor">@color/Blk_12</item>
+    </style>
+    <!--ToastModel相关style end-->
+    <!--dialog 相关style-->
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+
+    </style>
+
+    <style name="FoxTitleDialog" parent="Dialog">
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="dialog_full_screen_loading" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+    </style>
+    <!-- 规范之外的 text Style start-->
+
+    <style name="Text_Red1_T9">
+        <item name="android:textColor">@color/Red_1</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="Text_B1_T4">
+        <item name="android:textColor">@color/Blk_1</item>
+        <item name="android:textSize">@dimen/T_4</item>
+    </style>
+
+    <style name="Text_B1_T6">
+        <item name="android:textColor">@color/Blk_1</item>
+        <item name="android:textSize">@dimen/T_6</item>
+    </style>
+    <style name="Text_B1_T7">
+        <item name="android:textColor">@color/Blk_1</item>
+        <item name="android:textSize">@dimen/T_7</item>
+    </style>
+
+    <style name="Text_B2_T7">
+        <item name="android:textColor">@color/Blk_2</item>
+        <item name="android:textSize">@dimen/T_7</item>
+    </style>
+
+    <style name="Text_B1_T9">
+        <item name="android:textColor">@color/Blk_1</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="Text_B1_T2">
+        <item name="android:textColor">@color/Blk_1</item>
+        <item name="android:textSize">@dimen/T_2</item>
+    </style>
+    <style name="Text_B1_T3">
+        <item name="android:textColor">@color/Blk_1</item>
+        <item name="android:textSize">@dimen/T_3</item>
+    </style>
+
+    <style name="Text_B2_T2">
+        <item name="android:textColor">@color/Blk_2</item>
+        <item name="android:textSize">@dimen/T_2</item>
+    </style>
+    <style name="Text_B2_T8">
+        <item name="android:textColor">@color/Blk_2</item>
+        <item name="android:textSize">@dimen/T_8</item>
+    </style>
+
+    <style name="Text_B3_T9">
+        <item name="android:textColor">@color/Blk_3</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="Text_B4_T5">
+        <item name="android:textColor">@color/Blk_4</item>
+        <item name="android:textSize">@dimen/T_5</item>
+    </style>
+
+    <style name="Text_B4_T7">
+        <item name="android:textColor">@color/Blk_4</item>
+        <item name="android:textSize">@dimen/T_7</item>
+    </style>
+
+    <style name="Text_B4_T11">
+        <item name="android:textColor">@color/Blk_4</item>
+        <item name="android:textSize">@dimen/T_11</item>
+    </style>
+
+    <style name="Text_B5_T5">
+        <item name="android:textColor">@color/Blk_5</item>
+        <item name="android:textSize">@dimen/T_5</item>
+    </style>
+
+    <style name="Text_B5_T8">
+        <item name="android:textColor">@color/Blk_5</item>
+        <item name="android:textSize">@dimen/T_8</item>
+    </style>
+
+    <style name="Text_B5_T9">
+        <item name="android:textColor">@color/Blk_5</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="Text_B6_T4">
+        <item name="android:textColor">@color/Blk_6</item>
+        <item name="android:textSize">@dimen/T_4</item>
+    </style>
+
+    <style name="Text_B6_T7">
+        <item name="android:textColor">@color/Blk_6</item>
+        <item name="android:textSize">@dimen/T_7</item>
+    </style>
+
+    <style name="Text_B6_T9">
+        <item name="android:textColor">@color/Blk_6</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="Text_B6_T10">
+        <item name="android:textColor">@color/Blk_6</item>
+        <item name="android:textSize">@dimen/T_10</item>
+    </style>
+
+    <style name="Text_B7_T8">
+        <item name="android:textColor">@color/Blk_7</item>
+        <item name="android:textSize">@dimen/T_8</item>
+    </style>
+
+    <style name="Text_B7_T11">
+        <item name="android:textColor">@color/Blk_7</item>
+        <item name="android:textSize">@dimen/T_11</item>
+    </style>
+
+    <style name="Text_B12_T3">
+        <item name="android:textColor">@color/Blk_12</item>
+        <item name="android:textSize">@dimen/T_3</item>
+    </style>
+
+    <style name="Text_B12_T7">
+        <item name="android:textColor">@color/Blk_12</item>
+        <item name="android:textSize">@dimen/T_7</item>
+    </style>
+
+    <style name="Text_B12_T9">
+        <item name="android:textColor">@color/Blk_12</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="Text_B12_T10">
+        <item name="android:textColor">@color/Blk_12</item>
+        <item name="android:textSize">@dimen/T_10</item>
+    </style>
+
+    <style name="Text_B12_T11">
+        <item name="android:textColor">@color/Blk_12</item>
+        <item name="android:textSize">@dimen/T_11</item>
+    </style>
+
+    <style name="Text_T4B">
+        <item name="android:textSize">@dimen/T_4</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text_T7B">
+        <item name="android:textSize">@dimen/T_7</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!-- 规范之外的 text Style end-->
+
+    <!--dialog 相关style end-->
+    <!--text相关style-->
+    <style name="Text_B1_T5">
+        <item name="android:textColor">@color/Blk_1</item>
+        <item name="android:textSize">@dimen/T_5</item>
+    </style>
+
+    <style name="Text_B2_T9">
+        <item name="android:textColor">@color/Blk_2</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="Text_B2_T5">
+        <item name="android:textColor">@color/Blk_2</item>
+        <item name="android:textSize">@dimen/T_5</item>
+    </style>
+
+    <style name="Text_B2_T6">
+        <item name="android:textColor">@color/Blk_2</item>
+        <item name="android:textSize">@dimen/T_6</item>
+    </style>
+
+    <style name="Text_B2_T4">
+        <item name="android:textColor">@color/Blk_2</item>
+        <item name="android:textSize">@dimen/T_4</item>
+    </style>
+
+    <style name="Text_B4_T6">
+        <item name="android:textColor">@color/Blk_4</item>
+        <item name="android:textSize">@dimen/T_6</item>
+    </style>
+
+    <style name="Text_B4_T8">
+        <item name="android:textColor">@color/Blk_4</item>
+        <item name="android:textSize">@dimen/T_8</item>
+    </style>
+
+    <style name="Text_B4_T9">
+        <item name="android:textColor">@color/Blk_4</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="Text_B4_T10">
+        <item name="android:textColor">@color/Blk_4</item>
+        <item name="android:textSize">@dimen/T_10</item>
+    </style>
+    <!--text相关style end-->
+    <!--avatar相关style start-->
+    <style name="Bal_1">
+        <item name="android:layout_width">@dimen/Bal_1</item>
+        <item name="android:layout_height">@dimen/Bal_1</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="Bal_3">
+        <item name="android:layout_width">@dimen/Bal_3</item>
+        <item name="android:layout_height">@dimen/Bal_3</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="Bal_4">
+        <item name="android:layout_width">@dimen/Bal_4</item>
+        <item name="android:layout_height">@dimen/Bal_4</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="Bal_5">
+        <item name="android:layout_width">@dimen/Bal_5</item>
+        <item name="android:layout_height">@dimen/Bal_5</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="Bal_6">
+        <item name="android:layout_width">@dimen/Bal_6</item>
+        <item name="android:layout_height">@dimen/Bal_6</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="Bal_7">
+        <item name="android:layout_width">@dimen/Bal_7</item>
+        <item name="android:layout_height">@dimen/Bal_7</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+    <!--avatar相关style end-->
+    <style name="icon_text_T9">
+        <item name="android:drawablePadding">@dimen/drawable_padding_7</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">@dimen/T_9</item>
+    </style>
+
+    <style name="icon_text_T6">
+        <item name="android:drawablePadding">@dimen/drawable_padding_2</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">@dimen/T_6</item>
+    </style>
+
+    <style name="icon_text_T7">
+        <item name="android:drawablePadding">@dimen/drawable_padding_2</item>
+        <item name="android:textSize">@dimen/T_7</item>
+    </style>
+
+    <!-- 圆角图片 -->
+    <declare-styleable name="HyCornerImageVIew">
+        <attr name="cornerRadius" format="dimension">圆角半径</attr>
+        <attr name="topLeftRadius" format="dimension">左上</attr>
+        <attr name="topRightRadius" format="dimension">右上</attr>
+        <attr name="bottomLeftRadius" format="dimension">左下</attr>
+        <attr name="bottomRightRadius" format="dimension">右下</attr>
+
+        <attr name="topLeftRadius_x" format="dimension">左上X轴</attr>
+        <attr name="topLeftRadius_y" format="dimension">左上Y轴</attr>
+
+        <attr name="topRightRadius_x" format="dimension">右上X轴</attr>
+        <attr name="topRightRadius_y" format="dimension">右上Y轴</attr>
+
+        <attr name="bottomLeftRadius_x" format="dimension">左下X轴</attr>
+        <attr name="bottomLeftRadius_y" format="dimension">左下Y轴</attr>
+
+        <attr name="bottomRightRadius_x" format="dimension">右下X轴</attr>
+        <attr name="bottomRightRadius_y" format="dimension">右下Y轴</attr>
+
+        <attr name="cornerBorderWidth" format="dimension">描边宽度</attr>
+        <attr name="cornerBorderColor" format="color">描边颜色</attr>
+        <attr name="borderSpace" format="dimension">描边与图片间距</attr>
+        <!-- 无论是什么展示形式，都会填充满整个控件，如果不想填充满，自己去改onDraw里面的 dst -->
+        <attr name="scaleType" format="enum">
+            <enum name="top" value="0">从图片顶部开始绘制，即肯定会展示图片顶部，默认</enum>
+            <enum name="center" value="1">展示图片中心</enum>
+            <enum name="bottom" value="2">从图片底部开始绘制，即肯定会展示图片底部</enum>
+            <enum name="fitXY" value="3">完全展示，有可能变形</enum>
+        </attr>
+    </declare-styleable>
+</resources>

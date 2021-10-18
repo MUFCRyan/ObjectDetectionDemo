@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="HySearchBar">
+    <attr name="csb_show_cancel" format="boolean" />
+    <attr name="search_style" format="enum">
+      <enum name="type1" value="1" />
+      <enum name="type2" value="2" />
+      <enum name="type3" value="3" />
+    </attr>
+    <attr name="search_hint" format="string" />
+  </declare-styleable>
+</resources>
