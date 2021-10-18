@@ -51,12 +51,8 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
     })
   }
 
-  override fun initData() {
-    super.initData()
-    requestData()
-  }
-
-  private fun requestData() {
+  override fun requestData() {
+    super.requestData()
     viewModel.getArticleList(nextPageNumber)
   }
 
@@ -73,7 +69,7 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
 
   override fun provideRecyclerView() = findViewById<RecyclerView>(R.id.recycler_view)!!
 
-  override fun provideLoadingView() = findViewById<LoadingView>(R.id.view_loading)
+  override fun provideLoadingView(): LoadingView = findViewById(R.id.view_loading)
 
   override fun provideExceptionPageView(): ExceptionPageView = findViewById(R.id.view_exception_page)
 

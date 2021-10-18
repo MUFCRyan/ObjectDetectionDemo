@@ -6,4 +6,6 @@ interface ILoading {
   fun endLoading()
 
   fun setOnStartLoadingListener(listener: Runnable?)
+
+  fun setLoadingEnable(enable: Boolean){}
 }

@@ -9,6 +9,7 @@ import com.mufcryan.base.bean.BaseResponse
 import com.mufcryan.net.NetManager
 import com.mufcryan.util.GsonUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class ArticleListRepository: BaseRepository<BasePagingRequest, BaseResponse<ArticlePagingBean>>() {
   companion object {
@@ -220,14 +221,14 @@ class ArticleListRepository: BaseRepository<BasePagingRequest, BaseResponse<Arti
         .getArticleList(it.pageNumber, it.pageSize)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe({ -> response
+        .subscribe({ response ->
           if(response.isSuccessful){
             callBack?.onSuccess(response)
           } else {
             callBack?.onFailure(response.status, response.msg)
           }
-        }, {
-          callBack?.onError(response)
+        }, { throwable ->
+          callBack?.onError(throwable)
         })
     }*/
   }

@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentActivity
 
 
 abstract class BaseActivity: FragmentActivity() {
-    private var exceptionPageView: ExceptionPageView? = null
-    private var loadingView: ILoading? = null
+    protected var exceptionPageView: ExceptionPageView? = null
+    protected var loadingView: ILoading? = null
 
     protected abstract fun getLayoutResId(): Int
 
@@ -36,8 +36,14 @@ abstract class BaseActivity: FragmentActivity() {
             loadingView?.startLoading()
         }
     }
-    protected open fun initData(){}
+    protected open fun initData(){
+        requestData()
+    }
     protected open fun isFullScreen() = false
+
+    protected open fun requestData(){
+        loadingView?.startLoading()
+    }
 
     protected open fun onReloadData(){
         exceptionPageView?.setPageType(ExceptionPageView.PageType.NONE)
@@ -65,8 +71,11 @@ abstract class BaseActivity: FragmentActivity() {
         initData()
     }
 
-    protected fun openActivity(clazz: Class<out Activity>){
+    fun openActivity(clazz: Class<out Activity>, bundle: Bundle? = null){
         val intent = Intent(this, clazz)
+        if(bundle != null){
+            intent.putExtras(bundle)
+        }
         startActivity(intent)
     }
 

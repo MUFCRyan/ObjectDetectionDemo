@@ -26,4 +26,8 @@ class LoadingView: SwipeRefreshLayout, ILoading {
   override fun setOnStartLoadingListener(listener: Runnable?) {
     onStartLoadingListener = listener
   }
+
+  override fun setLoadingEnable(enable: Boolean) {
+    isEnabled = enable
+  }
 }

@@ -1,12 +1,16 @@
 package com.mufcryan.anabstract.common.ui
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.mufcryan.anabstract.R
 import com.mufcryan.anabstract.common.bean.ArticleBean
+import com.mufcryan.anabstract.common.constants.ExtraKeys
+import com.mufcryan.anabstract.detail.ArticleActivity
+import com.mufcryan.base.ui.BaseActivity
 import com.mufcryan.base.ui.BaseAdapter
 
 class ArticleListAdapter: BaseAdapter<ArticleBean, ArticleHolder>() {
@@ -30,7 +34,9 @@ class ArticleListAdapter: BaseAdapter<ArticleBean, ArticleHolder>() {
       holder.tvDate.text = data.date
 
       holder.itemView.setOnClickListener {
-        //TODO 进入文章详情页
+        val bundle = Bundle()
+        bundle.putString(ExtraKeys.EXTRA_ID, data.id)
+        (it.context as BaseActivity).openActivity(ArticleActivity::class.java, bundle)
       }
     }
   }
