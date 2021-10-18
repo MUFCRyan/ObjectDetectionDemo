@@ -25,14 +25,10 @@ abstract class BasePagingActivity<Data, Holder: RecyclerView.ViewHolder>: BaseAc
       override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         state = newState
-      }
-
-      override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(recyclerView, dx, dy)
         if(state == RecyclerView.SCROLL_STATE_IDLE
-            && adapter.list.isNotEmpty()
-            && layoutManager.findLastCompletelyVisibleItemPosition() == adapter.list.size - 1
-            && canLoadMore){
+          && adapter.list.isNotEmpty()
+          && layoutManager.findLastCompletelyVisibleItemPosition() == adapter.list.size - 1
+          && canLoadMore){
           onLoadMore()
         }
       }

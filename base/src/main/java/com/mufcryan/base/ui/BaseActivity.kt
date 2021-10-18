@@ -20,6 +20,7 @@ abstract class BaseActivity: FragmentActivity() {
     @CallSuper
     protected open fun initView(){
         exceptionPageView = provideExceptionPageView()
+        loadingView = provideLoadingView()
     }
 
     @CallSuper
@@ -64,7 +65,7 @@ abstract class BaseActivity: FragmentActivity() {
         initData()
     }
 
-    protected fun openActivity(clazz: Class<Activity>){
+    protected fun openActivity(clazz: Class<out Activity>){
         val intent = Intent(this, clazz)
         startActivity(intent)
     }

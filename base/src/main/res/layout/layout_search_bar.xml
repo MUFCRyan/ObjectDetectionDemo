@@ -21,24 +21,23 @@
         >
 
         <EditText
-            android:id="@+id/search_bar_edit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_sohuhy_searchbar"
-            android:paddingStart="28dp"
-            android:paddingEnd="24dp"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:hint="搜索"
-            android:imeOptions="actionSearch"
-            android:includeFontPadding="false"
-            android:maxLength="20"
-            android:singleLine="true"
-            style="@style/Text_B2_T9"
-            android:textColorHint="@color/Blk_3"
-            android:textCursorDrawable="@drawable/search_cursor"
-            tools:text="啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿1111111111"
-            />
+          android:id="@+id/search_bar_edit"
+          style="@style/Text_B2_T9"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/background_sohuhy_searchbar"
+          android:focusable="true"
+          android:gravity="center_vertical"
+          android:hint="搜索"
+          android:imeOptions="actionSearch"
+          android:includeFontPadding="false"
+          android:maxLength="20"
+          android:paddingEnd="24dp"
+          android:paddingStart="28dp"
+          android:singleLine="true"
+          android:textColorHint="@color/Blk_3"
+          android:textCursorDrawable="@drawable/search_cursor"
+          tools:text="啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿1111111111" />
 
         <ImageView
             android:id="@+id/iv_search_icon"

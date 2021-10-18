@@ -22,6 +22,8 @@ class ArticleListAdapter: BaseAdapter<ArticleBean, ArticleHolder>() {
       if(!TextUtils.isEmpty(data.image)){
         Glide.with(holder.ivCover)
           .load(data.image)
+          .centerCrop()
+          .into(holder.ivCover)
       }
       holder.tvTitle.text = data.title
       holder.tvContent.text = data.content

@@ -15,11 +15,13 @@ class SplashActivity : BaseModelActivity() {
     override fun getLayoutResId() = R.layout.activity_splash
 
     override fun initView() {
+        super.initView()
         btnPhotoDetect = findViewById(R.id.btn_photo_detect)
         btnVideoDetect = findViewById(R.id.btn_video_detect)
     }
 
     override fun initListener() {
+        super.initListener()
         btnPhotoDetect.setOnClickListener {
             openActivity(MainActivity().javaClass)
         }
