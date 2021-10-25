@@ -1,4 +1,4 @@
-package com.mufcryan.anabstract.main
+package com.mufcryan.anabstract.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView

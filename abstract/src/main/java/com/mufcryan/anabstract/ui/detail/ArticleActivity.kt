@@ -1,7 +1,5 @@
-package com.mufcryan.anabstract.detail
+package com.mufcryan.anabstract.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.text.TextUtils
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,10 +7,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.mufcryan.anabstract.R
 import com.mufcryan.anabstract.common.constants.ExtraKeys
+import com.mufcryan.anabstract.common.ui.AbstractWordCloudView
 import com.mufcryan.anabstract.viewmodel.AbstractViewModel
 import com.mufcryan.base.ui.BaseActivity
 import com.mufcryan.base.ui.ExceptionPageView
-import com.mufcryan.base.ui.ILoading
 import com.mufcryan.base.ui.LoadingView
 
 class ArticleActivity : BaseActivity() {
@@ -22,6 +20,7 @@ class ArticleActivity : BaseActivity() {
   private lateinit var tvTitle: TextView
   private lateinit var tvContent: TextView
   private lateinit var tvDate: TextView
+  private lateinit var viewAbstractWordCloud: AbstractWordCloudView
 
   override fun getLayoutResId() = R.layout.activity_article
 
@@ -34,6 +33,7 @@ class ArticleActivity : BaseActivity() {
     tvTitle = findViewById(R.id.tv_title)
     tvContent = findViewById(R.id.tv_content)
     tvDate = findViewById(R.id.tv_date)
+    viewAbstractWordCloud = findViewById(R.id.view_abstract_word_cloud)
 
     loadingView?.setLoadingEnable(false)
   }
@@ -42,15 +42,18 @@ class ArticleActivity : BaseActivity() {
     super.initListener()
     viewModel.article.observe(this, {
       if(it.isSuccessful){
-        if(!TextUtils.isEmpty(it.data.image)){
-          Glide.with(ivCover)
-            .load(it.data.image)
-            .centerCrop()
-            .into(ivCover)
+        it.data.let { article ->
+          if(!TextUtils.isEmpty(article.image)){
+            Glide.with(ivCover)
+              .load(article.image)
+              .centerCrop()
+              .into(ivCover)
+          }
+          tvTitle.text = article.title
+          tvContent.text = article.content
+          tvDate.text = article.date
+          viewAbstractWordCloud.setData(article.abstract, article.wordCloud)
         }
-        tvTitle.text = it.data.title
-        tvContent.text = it.data.content
-        tvDate.text = it.data.date
       } else {
         onShowErrorPage()
       }

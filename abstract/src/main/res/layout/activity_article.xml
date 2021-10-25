@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".detail.ArticleActivity">
+  tools:context=".ui.detail.ArticleActivity">
 
   <ScrollView
     android:layout_width="match_parent"
@@ -55,6 +55,11 @@
         android:layout_marginTop="10dp"
         tools:text="正文"
         />
+
+      <com.mufcryan.anabstract.common.ui.AbstractWordCloudView
+        android:id="@+id/view_abstract_word_cloud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     </LinearLayout>
   </ScrollView>
 

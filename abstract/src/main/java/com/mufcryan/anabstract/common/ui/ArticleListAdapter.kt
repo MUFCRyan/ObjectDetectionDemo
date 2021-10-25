@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.mufcryan.anabstract.R
 import com.mufcryan.anabstract.common.bean.ArticleBean
 import com.mufcryan.anabstract.common.constants.ExtraKeys
-import com.mufcryan.anabstract.detail.ArticleActivity
+import com.mufcryan.anabstract.ui.detail.ArticleActivity
 import com.mufcryan.base.ui.BaseActivity
 import com.mufcryan.base.ui.BaseAdapter
 

@@ -3,7 +3,7 @@ package com.mufcryan.anabstract.common.ui
 import android.Manifest
 import android.view.View
 import com.mufcryan.anabstract.R
-import com.mufcryan.anabstract.main.MainActivity
+import com.mufcryan.anabstract.ui.main.MainActivity
 import com.mufcryan.base.ui.BaseActivity
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
