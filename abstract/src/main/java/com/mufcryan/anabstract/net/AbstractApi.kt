@@ -14,5 +14,12 @@ interface AbstractApi {
 
   @JvmSuppressWildcards
   @GET("")
+  fun getSearchArticleList(
+      @Query("searchWord") searchWord: String,
+      @Query("pageNumber") pageNumber: Int = 0,
+      @Query("pageSize") pageSize: Int = 20): Observable<BaseResponse<ArticlePagingBean>>
+
+  @JvmSuppressWildcards
+  @GET("")
   fun getArticle(@Query("id") id: String): Observable<BaseResponse<ArticleBean>>
 }

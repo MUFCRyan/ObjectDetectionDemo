@@ -37,9 +37,13 @@ abstract class BaseActivity: FragmentActivity() {
         }
     }
     protected open fun initData(){
-        requestData()
+        if (isRequestWhenInit()) {
+            requestData()
+        }
     }
     protected open fun isFullScreen() = false
+
+    protected open fun isRequestWhenInit() = true
 
     protected open fun requestData(){
         loadingView?.startLoading()

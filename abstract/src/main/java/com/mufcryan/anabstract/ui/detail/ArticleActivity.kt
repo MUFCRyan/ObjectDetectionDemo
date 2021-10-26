@@ -52,7 +52,9 @@ class ArticleActivity : BaseActivity() {
           tvTitle.text = article.title
           tvContent.text = article.content
           tvDate.text = article.date
-          viewAbstractWordCloud.setData(article.abstract, article.wordCloud)
+          article.summary?.let { summary ->
+            viewAbstractWordCloud.setData(summary.abstract, summary.wordCloud)
+          }
         }
       } else {
         onShowErrorPage()

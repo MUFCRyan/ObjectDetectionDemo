@@ -6,6 +6,8 @@ import com.mufcryan.anabstract.common.bean.ArticleBean
 import com.mufcryan.anabstract.common.bean.ArticlePagingBean
 import com.mufcryan.anabstract.repository.ArticleListRepository
 import com.mufcryan.anabstract.repository.ArticleRepository
+import com.mufcryan.anabstract.repository.SearchArticleListRepository
+import com.mufcryan.anabstract.ui.search.SearchPagingRequest
 import com.mufcryan.base.bean.BasePagingRequest
 import com.mufcryan.base.bean.BaseResponse
 
@@ -15,6 +17,12 @@ class AbstractViewModel: ViewModel() {
   fun getArticleList(pageNumber: Int = 0, pageSize: Int = 20){
     val request = BasePagingRequest(pageNumber, pageSize)
     articleListRepository.processDataForResponse(request, articleList)
+  }
+
+  private val searchArticleListRepository = SearchArticleListRepository()
+  fun getSearchArticleList(searchWord: String, pageNumber: Int = 0, pageSize: Int = 20){
+    val request = SearchPagingRequest(searchWord, pageNumber, pageSize)
+    searchArticleListRepository.processDataForResponse(request, articleList)
   }
 
   val article = MutableLiveData<BaseResponse<ArticleBean>>()

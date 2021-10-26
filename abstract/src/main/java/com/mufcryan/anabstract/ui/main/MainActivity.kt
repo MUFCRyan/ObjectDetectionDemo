@@ -1,9 +1,16 @@
 package com.mufcryan.anabstract.ui.main
 
+import android.os.Bundle
+import android.os.Handler
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.mufcryan.anabstract.R
 import com.mufcryan.anabstract.common.bean.ArticleBean
+import com.mufcryan.anabstract.common.constants.ExtraKeys
 import com.mufcryan.anabstract.common.ui.ArticleHolder
 import com.mufcryan.anabstract.common.ui.ArticleListAdapter
 import com.mufcryan.anabstract.viewmodel.AbstractViewModel
@@ -14,30 +21,67 @@ import com.mufcryan.base.ui.LoadingView
 import com.mufcryan.base.ui.SearchBar
 
 class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
+  private lateinit var tvTitle: TextView
   private lateinit var searchBar: SearchBar
   private lateinit var viewModel: AbstractViewModel
   private var nextPageNumber = 0
+  private var pageType = PageType.MAIN
 
   override fun getLayoutResId() = R.layout.activity_main
 
   override fun initView() {
     super.initView()
+    intent?.let {
+      if (it.getSerializableExtra(ExtraKeys.EXTRA_PAGE_TYPE) is PageType) {
+        pageType = it.getSerializableExtra(ExtraKeys.EXTRA_PAGE_TYPE) as PageType
+      }
+    }
     viewModel = ViewModelProvider.NewInstanceFactory().create(AbstractViewModel::class.java)
+    tvTitle = findViewById(R.id.tv_title)
     searchBar = findViewById(R.id.search_bar)
   }
 
   override fun initListener() {
     super.initListener()
-    searchBar.setOnSearchClickListener { v ->
-      // TODO 进入搜索列表页
+    if (pageType == PageType.MAIN) {
+      searchBar.setOnSearchClickListener { v ->
+        val bundle = Bundle()
+        bundle.putSerializable(ExtraKeys.EXTRA_PAGE_TYPE, PageType.SEARCH)
+        openActivity(MainActivity::class.java, bundle)
+      }
+    } else {
+      searchBar.setOnCancelClickListener {
+        finish()
+      }
+      searchBar.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+          requestData()
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+      })
     }
 
     viewModel.articleList.observe(this, {
       if(it.isSuccessful){
-        if(hasData()){
-          onLoadMoreSucceed(it.data.list)
-        } else {
-          onRefreshSucceed(it.data.list)
+        when (pageType) {
+          PageType.MAIN -> {
+            if(hasData()){
+              onLoadMoreSucceed(it.data.list)
+            } else {
+              onRefreshSucceed(it.data.list)
+            }
+          }
+
+          PageType.SEARCH -> {
+            if (searchBar.text.toString() == it.data.searchWord) {
+              onRefreshSucceed(it.data.list)
+            }
+          }
         }
         canLoadMore = it.data.hasMore
         nextPageNumber = it.data.pageNumber
@@ -51,9 +95,22 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
     })
   }
 
+  override fun initData() {
+    super.initData()
+    if (pageType == PageType.SEARCH) {
+      tvTitle.text = "搜索"
+      searchBar.setStyle(SearchBar.Style.TYPE_2)
+      loadingView?.setLoadingEnable(false)
+    }
+  }
+
   override fun requestData() {
     super.requestData()
-    viewModel.getArticleList(nextPageNumber)
+    if (pageType == PageType.MAIN) {
+      viewModel.getArticleList(nextPageNumber)
+    } else if(!TextUtils.isEmpty(searchBar.text)) {
+      viewModel.getSearchArticleList(searchBar.text.toString())
+    }
   }
 
   override fun onRefresh() {
@@ -67,6 +124,10 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
     requestData()
   }
 
+  override fun isRequestWhenInit(): Boolean {
+    return pageType == PageType.MAIN
+  }
+
   override fun provideRecyclerView() = findViewById<RecyclerView>(R.id.recycler_view)!!
 
   override fun provideLoadingView(): LoadingView = findViewById(R.id.view_loading)
@@ -75,5 +136,19 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
 
   override fun provideRecyclerAdapter(): BaseAdapter<ArticleBean, ArticleHolder> {
     return ArticleListAdapter()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    searchBar.postDelayed({ searchBar.showSoftInput() }, 60)
+  }
+
+  override fun finish() {
+    super.finish()
+    searchBar.hideSoftInput()
+  }
+
+  enum class PageType {
+    MAIN, SEARCH
   }
 }

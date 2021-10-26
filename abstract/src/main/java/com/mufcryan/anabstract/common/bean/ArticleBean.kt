@@ -6,6 +6,5 @@ class ArticleBean {
   var content = ""
   var date = ""
   var image = ""
-  var abstract = ""
-  var wordCloud = ArrayList<WordCloudBean>()
+  var summary: SummaryBean? = null
 }
