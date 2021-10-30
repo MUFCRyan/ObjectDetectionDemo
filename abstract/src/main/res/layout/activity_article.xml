@@ -56,8 +56,8 @@
         tools:text="正文"
         />
 
-      <com.mufcryan.anabstract.common.ui.AbstractWordCloudView
-        android:id="@+id/view_abstract_word_cloud"
+      <com.mufcryan.anabstract.common.ui.SummaryView
+        android:id="@+id/view_summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     </LinearLayout>

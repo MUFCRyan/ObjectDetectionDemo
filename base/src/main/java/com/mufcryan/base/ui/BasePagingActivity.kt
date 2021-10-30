@@ -54,6 +54,11 @@ abstract class BasePagingActivity<Data, Holder: RecyclerView.ViewHolder>: BaseAc
 
   protected open fun onLoadMore(){}
 
+  fun clearList(){
+    adapter.setList(ArrayList())
+    onEndLoadData()
+  }
+
   protected fun onRefreshSucceed(list: List<Data>){
     adapter.setList(list)
     if(adapter.list.isEmpty()){

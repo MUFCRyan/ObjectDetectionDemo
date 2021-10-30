@@ -1,10 +1,10 @@
 package com.mufcryan.anabstract.ui.main
 
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +13,7 @@ import com.mufcryan.anabstract.common.bean.ArticleBean
 import com.mufcryan.anabstract.common.constants.ExtraKeys
 import com.mufcryan.anabstract.common.ui.ArticleHolder
 import com.mufcryan.anabstract.common.ui.ArticleListAdapter
+import com.mufcryan.anabstract.ui.user_input.UserInputActivity
 import com.mufcryan.anabstract.viewmodel.AbstractViewModel
 import com.mufcryan.base.ui.BaseAdapter
 import com.mufcryan.base.ui.BasePagingActivity
@@ -22,6 +23,7 @@ import com.mufcryan.base.ui.SearchBar
 
 class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
   private lateinit var tvTitle: TextView
+  private lateinit var tvInputByUser: TextView
   private lateinit var searchBar: SearchBar
   private lateinit var viewModel: AbstractViewModel
   private var nextPageNumber = 0
@@ -38,12 +40,19 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
     }
     viewModel = ViewModelProvider.NewInstanceFactory().create(AbstractViewModel::class.java)
     tvTitle = findViewById(R.id.tv_title)
+    tvInputByUser = findViewById(R.id.tv_user_input)
+    if(pageType == PageType.SEARCH){
+      tvInputByUser.visibility = View.GONE
+    }
     searchBar = findViewById(R.id.search_bar)
   }
 
   override fun initListener() {
     super.initListener()
     if (pageType == PageType.MAIN) {
+      tvInputByUser.setOnClickListener {
+        openActivity(UserInputActivity::class.java)
+      }
       searchBar.setOnSearchClickListener { v ->
         val bundle = Bundle()
         bundle.putSerializable(ExtraKeys.EXTRA_PAGE_TYPE, PageType.SEARCH)
@@ -54,14 +63,12 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
         finish()
       }
       searchBar.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-          requestData()
-        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         override fun afterTextChanged(s: Editable?) {
+          clearList()
+          requestData()
         }
       })
     }
@@ -136,6 +143,10 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
 
   override fun provideRecyclerAdapter(): BaseAdapter<ArticleBean, ArticleHolder> {
     return ArticleListAdapter()
+  }
+
+  override fun canShowEmptyPage(): Boolean {
+    return pageType == PageType.MAIN
   }
 
   override fun onResume() {

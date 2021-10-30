@@ -15,7 +15,10 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.ObjectDetectionDemo">
     <activity
-      android:name="com.mufcryan.anabstract.ui.detail.ArticleActivity"
+      android:name=".ui.user_input.UserInputActivity"
+      android:exported="false" />
+    <activity
+      android:name=".ui.detail.ArticleActivity"
       android:exported="true" />
     <activity
       android:name=".ui.search.SearchActivity"
@@ -30,7 +33,7 @@
       </intent-filter>
     </activity>
     <activity
-      android:name="com.mufcryan.anabstract.ui.main.MainActivity"
+      android:name=".ui.main.MainActivity"
       android:exported="true" />
   </application>
 

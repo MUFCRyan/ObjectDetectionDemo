@@ -2,6 +2,7 @@ package com.mufcryan.anabstract.net
 
 import com.mufcryan.anabstract.common.bean.ArticleBean
 import com.mufcryan.anabstract.common.bean.ArticlePagingBean
+import com.mufcryan.anabstract.common.bean.SummaryBean
 import com.mufcryan.base.bean.BaseResponse
 import retrofit2.http.GET
 import io.reactivex.Observable
@@ -22,4 +23,8 @@ interface AbstractApi {
   @JvmSuppressWildcards
   @GET("")
   fun getArticle(@Query("id") id: String): Observable<BaseResponse<ArticleBean>>
+
+  @JvmSuppressWildcards
+  @GET("")
+  fun getSummary(@Query("input") input: String): Observable<BaseResponse<SummaryBean>>
 }

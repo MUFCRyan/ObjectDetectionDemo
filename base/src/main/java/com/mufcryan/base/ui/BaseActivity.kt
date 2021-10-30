@@ -3,7 +3,6 @@ package com.mufcryan.base.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
@@ -88,10 +87,13 @@ abstract class BaseActivity: FragmentActivity() {
         exceptionPageView?.setPageType(ExceptionPageView.PageType.ERROR)
     }
 
-    @CallSuper
-    protected fun onShowEmptyPage(){
-        exceptionPageView?.setPageType(ExceptionPageView.PageType.EMPTY)
+    protected open fun onShowEmptyPage(){
+        if(canShowEmptyPage()){
+            exceptionPageView?.setPageType(ExceptionPageView.PageType.EMPTY)
+        }
     }
+
+    protected open fun canShowEmptyPage() = true
 
     fun showErrorToast(){
         Toast.makeText(this, "网络异常，请稍后重试", Toast.LENGTH_SHORT).show()

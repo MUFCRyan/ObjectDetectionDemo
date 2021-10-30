@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.mufcryan.anabstract.R
 import com.mufcryan.anabstract.common.constants.ExtraKeys
-import com.mufcryan.anabstract.common.ui.AbstractWordCloudView
+import com.mufcryan.anabstract.common.ui.SummaryView
 import com.mufcryan.anabstract.viewmodel.AbstractViewModel
 import com.mufcryan.base.ui.BaseActivity
 import com.mufcryan.base.ui.ExceptionPageView
@@ -20,7 +20,7 @@ class ArticleActivity : BaseActivity() {
   private lateinit var tvTitle: TextView
   private lateinit var tvContent: TextView
   private lateinit var tvDate: TextView
-  private lateinit var viewAbstractWordCloud: AbstractWordCloudView
+  private lateinit var summaryView: SummaryView
 
   override fun getLayoutResId() = R.layout.activity_article
 
@@ -33,7 +33,7 @@ class ArticleActivity : BaseActivity() {
     tvTitle = findViewById(R.id.tv_title)
     tvContent = findViewById(R.id.tv_content)
     tvDate = findViewById(R.id.tv_date)
-    viewAbstractWordCloud = findViewById(R.id.view_abstract_word_cloud)
+    summaryView = findViewById(R.id.view_summary)
 
     loadingView?.setLoadingEnable(false)
   }
@@ -53,7 +53,7 @@ class ArticleActivity : BaseActivity() {
           tvContent.text = article.content
           tvDate.text = article.date
           article.summary?.let { summary ->
-            viewAbstractWordCloud.setData(summary.abstract, summary.wordCloud)
+            summaryView.setData(summary)
           }
         }
       } else {

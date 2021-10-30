@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".ui.user_input.UserInputActivity">
+
+  <TextView
+    android:id="@+id/tv_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="14dp"
+    android:layout_marginEnd="14dp"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:textColor="@color/black"
+    android:text="用户输入"
+    />
+
+  <View
+    android:id="@+id/view_top_divider"
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:layout_marginTop="10dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tv_title"
+    android:background="@color/cardview_dark_background"
+    />
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/view_top_divider"
+    >
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+      <EditText
+        android:id="@+id/et_user_input"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="10dp"
+        android:hint="请输入文本..."
+        style="@style/Text_B2_T7"
+        android:gravity="top"
+        android:focusable="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:includeFontPadding="false"
+        android:textColorHint="@color/Blk_3"
+        android:textCursorDrawable="@drawable/search_cursor"
+        android:background="@color/white"
+        tools:text="啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿1111111111"
+        />
+
+      <TextView
+        android:id="@+id/tv_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text_B12_T3"
+        android:text="点击生成摘要和词云"
+        android:layout_marginTop="20dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_rect_radius_30_solid_fe3666"
+        />
+
+      <com.mufcryan.anabstract.common.ui.SummaryView
+        android:id="@+id/view_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+  </ScrollView>
+
+  <com.mufcryan.base.ui.LoadingView
+    android:id="@+id/view_loading"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="parent"
+    android:layout_gravity="center_horizontal"
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>

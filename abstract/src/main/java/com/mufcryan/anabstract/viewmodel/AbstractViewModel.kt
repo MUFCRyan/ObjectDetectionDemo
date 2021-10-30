@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mufcryan.anabstract.common.bean.ArticleBean
 import com.mufcryan.anabstract.common.bean.ArticlePagingBean
+import com.mufcryan.anabstract.common.bean.SummaryBean
+import com.mufcryan.anabstract.repository.SummaryRepository
 import com.mufcryan.anabstract.repository.ArticleListRepository
 import com.mufcryan.anabstract.repository.ArticleRepository
 import com.mufcryan.anabstract.repository.SearchArticleListRepository
@@ -29,5 +31,11 @@ class AbstractViewModel: ViewModel() {
   private val articleRepository = ArticleRepository()
   fun getArticle(id: String){
     articleRepository.processDataForResponse(id, article)
+  }
+
+  val summary = MutableLiveData<BaseResponse<SummaryBean>>()
+  private val summaryRepository = SummaryRepository()
+  fun getSummary(input: String){
+    summaryRepository.processDataForResponse(input, summary)
   }
 }

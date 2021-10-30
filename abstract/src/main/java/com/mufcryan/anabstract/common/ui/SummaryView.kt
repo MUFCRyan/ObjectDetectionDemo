@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.mufcryan.anabstract.R
+import com.mufcryan.anabstract.common.bean.SummaryBean
 import com.mufcryan.anabstract.common.bean.WordCloudBean
 import com.mufcryan.util.DisplayUtil
 
-class AbstractWordCloudView: LinearLayout {
+class SummaryView: LinearLayout {
   private var tvAbstract: TextView
   private var viewWordCloud: WordCloudView
 
@@ -22,15 +23,15 @@ class AbstractWordCloudView: LinearLayout {
     val paddingHorizontal = DisplayUtil.dp2Px(context, 14f)
     val paddingVertical = DisplayUtil.dp2Px(context, 10f)
     setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
-    LayoutInflater.from(context).inflate(R.layout.view_abstract_word_cloud, this, true)
+    LayoutInflater.from(context).inflate(R.layout.view_summary, this, true)
     tvAbstract = findViewById(R.id.tv_abstract)
     viewWordCloud = findViewById(R.id.view_word_cloud)
   }
 
-  fun setData(abstract: String, wordCloud: List<WordCloudBean>){
-    tvAbstract.text = abstract
+  fun setData(summary: SummaryBean){
+    tvAbstract.text = summary.abstract
     post {
-      viewWordCloud.setData(wordCloud)
+      viewWordCloud.setData(summary.wordCloud)
     }
   }
 }
