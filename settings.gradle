@@ -1,4 +1,4 @@
 include ':app'
 rootProject.name = "ObjectDetectionDemo"
 include ':base'
-include ':abstract'
+include ':summary'

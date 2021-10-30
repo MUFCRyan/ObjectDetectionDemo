@@ -10,6 +10,6 @@
 .cxx
 /app/release
 /app/build
-/abstract/build
+/summary/build
 /buildSrc/.gradle
 /buildSrc/build
