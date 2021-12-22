@@ -4,7 +4,12 @@ import com.google.gson.reflect.TypeToken
 import com.mufcryan.summary.common.bean.SummaryBean
 import com.mufcryan.base.BaseRepository
 import com.mufcryan.base.bean.BaseResponse
+import com.mufcryan.net.HostType
+import com.mufcryan.net.NetManager
+import com.mufcryan.summary.net.AbstractApi
 import com.mufcryan.util.GsonUtil
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class SummaryRepository: BaseRepository<String, BaseResponse<SummaryBean>>() {
   companion object {
@@ -73,12 +78,12 @@ class SummaryRepository: BaseRepository<String, BaseResponse<SummaryBean>>() {
     param: String?,
     callBack: RepositoryCallback<BaseResponse<SummaryBean>>?
   ) {
-    val type = object : TypeToken<BaseResponse<SummaryBean>>() {}.type
+    /*val type = object : TypeToken<BaseResponse<SummaryBean>>() {}.type
     val response = GsonUtil.getGsonObj<BaseResponse<SummaryBean>>(TEST_JSON, type)
-    callBack?.onSuccess(response)
+    callBack?.onSuccess(response)*/
 
-    /*param?.let {
-      NetManager.getApi(AbstractApi::class.java)
+    param?.let {
+      NetManager.getApi(HostType.Abstract, AbstractApi::class.java)
         .getSummary(it)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
@@ -91,6 +96,6 @@ class SummaryRepository: BaseRepository<String, BaseResponse<SummaryBean>>() {
         }, { throwable ->
           callBack?.onError(throwable)
         })
-    }*/
+    }
   }
 }

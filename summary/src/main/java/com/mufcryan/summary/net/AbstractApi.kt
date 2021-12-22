@@ -25,6 +25,6 @@ interface AbstractApi {
   fun getArticle(@Query("id") id: String): Observable<BaseResponse<ArticleBean>>
 
   @JvmSuppressWildcards
-  @GET("")
+  @GET("/dashboard/summary")
   fun getSummary(@Query("input") input: String): Observable<BaseResponse<SummaryBean>>
 }
