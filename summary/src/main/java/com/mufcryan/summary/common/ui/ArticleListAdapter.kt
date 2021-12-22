@@ -31,7 +31,7 @@ class ArticleListAdapter: BaseAdapter<ArticleBean, ArticleHolder>() {
       }
       holder.tvTitle.text = data.title
       holder.tvContent.text = data.content
-      holder.tvDate.text = data.date
+      holder.tvDate.text = data.getFormatData()
 
       holder.itemView.setOnClickListener {
         val bundle = Bundle()

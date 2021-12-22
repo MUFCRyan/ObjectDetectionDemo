@@ -4,7 +4,6 @@ package com.mufcryan.net;
 import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
-import java.security.cert.CertificateExpiredException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,8 +144,26 @@ public class RetrofitClient {
 
         SSLSocketFactory factory = createExpiredSSLSocketFactory();
         if (factory != null) {
-            builder.sslSocketFactory(factory);
+            builder.sslSocketFactory(factory, new X509TrustManager() {
+                @Override
+                public void checkClientTrusted(X509Certificate[] chain, String authType)
+                    throws CertificateException {
+
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] chain, String authType)
+                    throws CertificateException {
+
+                }
+
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            });
         }
+        builder.hostnameVerifier((hostname, session) -> true);
         return builder.build();
     }
 
@@ -326,20 +343,20 @@ public class RetrofitClient {
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             tmf.init((KeyStore) null);
             TrustManager[] trustManagers = tmf.getTrustManagers();
-            final X509TrustManager origTrustmanager = (X509TrustManager) trustManagers[0];
+            final X509TrustManager origTrustManager = (X509TrustManager) trustManagers[0];
 
             TrustManager[] wrappedTrustManagers = new TrustManager[]{ new X509TrustManager() {
                         public X509Certificate[] getAcceptedIssuers() {
-                            return origTrustmanager.getAcceptedIssuers();
+                            return new X509Certificate[]{};
                         }
 
                         public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
-                            origTrustmanager.checkClientTrusted(certs, authType);
+                            //origTrustManager.checkClientTrusted(certs, authType);
                         }
 
                         public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
-                            try {
-                                origTrustmanager.checkServerTrusted(certs, authType);
+                            /*try {
+                                origTrustManager.checkServerTrusted(certs, authType);
                             } catch (CertificateException e2) {
                                 if (e2.getCause() == null) {
                                     throw new CertificateException();
@@ -348,12 +365,12 @@ public class RetrofitClient {
                                         && !(e2 instanceof CertificateExpiredException)) {
                                     throw new CertificateException();
                                 }
-                            }
+                            }*/
                         }
                     }
             };
 
-            SSLContext sc = SSLContext.getInstance("TLS");
+            SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, wrappedTrustManagers, new SecureRandom());
 
             SSLSocketFactory ssfFactory = sc.getSocketFactory();

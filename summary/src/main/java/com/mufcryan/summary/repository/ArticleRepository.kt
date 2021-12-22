@@ -4,6 +4,11 @@ import com.google.gson.reflect.TypeToken
 import com.mufcryan.summary.common.bean.ArticleBean
 import com.mufcryan.base.BaseRepository
 import com.mufcryan.base.bean.BaseResponse
+import com.mufcryan.net.HostType
+import com.mufcryan.net.NetManager
+import com.mufcryan.summary.net.AbstractApi
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import com.mufcryan.util.GsonUtil
 
 class ArticleRepository: BaseRepository<String, BaseResponse<ArticleBean>>() {
@@ -80,12 +85,12 @@ class ArticleRepository: BaseRepository<String, BaseResponse<ArticleBean>>() {
     param: String?,
     callBack: RepositoryCallback<BaseResponse<ArticleBean>>?
   ) {
-    val type = object : TypeToken<BaseResponse<ArticleBean>>() {}.type
+    /*val type = object : TypeToken<BaseResponse<ArticleBean>>() {}.type
     val response = GsonUtil.getGsonObj<BaseResponse<ArticleBean>>(TEST_JSON, type)
-    callBack?.onSuccess(response)
+    callBack?.onSuccess(response)*/
 
-    /*param?.let {
-      NetManager.getApi(AbstractApi::class.java)
+    param?.let {
+      NetManager.getApi(HostType.Abstract, AbstractApi::class.java)
         .getArticle(it)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
@@ -98,6 +103,6 @@ class ArticleRepository: BaseRepository<String, BaseResponse<ArticleBean>>() {
         }, { throwable ->
           callBack?.onError(throwable)
         })
-    }*/
+    }
   }
 }

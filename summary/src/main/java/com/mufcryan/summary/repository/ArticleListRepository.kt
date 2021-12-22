@@ -5,7 +5,12 @@ import com.mufcryan.summary.common.bean.ArticlePagingBean
 import com.mufcryan.base.BaseRepository
 import com.mufcryan.base.bean.BasePagingRequest
 import com.mufcryan.base.bean.BaseResponse
+import com.mufcryan.net.HostType
+import com.mufcryan.net.NetManager
+import com.mufcryan.summary.net.AbstractApi
 import com.mufcryan.util.GsonUtil
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class ArticleListRepository: BaseRepository<BasePagingRequest, BaseResponse<ArticlePagingBean>>() {
   companion object {
@@ -209,11 +214,11 @@ class ArticleListRepository: BaseRepository<BasePagingRequest, BaseResponse<Arti
     param: BasePagingRequest?,
     callBack: RepositoryCallback<BaseResponse<ArticlePagingBean>>?
   ) {
-    val type = object : TypeToken<BaseResponse<ArticlePagingBean>>() {}.type
+    /*val type = object : TypeToken<BaseResponse<ArticlePagingBean>>() {}.type
     val response = GsonUtil.getGsonObj<BaseResponse<ArticlePagingBean>>(TEST_JSON, type)
-    callBack?.onSuccess(response)
-    /*param?.let {
-      NetManager.getApi(AbstractApi::class.java)
+    callBack?.onSuccess(response)*/
+    param?.let {
+      NetManager.getApi(HostType.Abstract, AbstractApi::class.java)
         .getArticleList(it.pageNumber, it.pageSize)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
@@ -226,6 +231,6 @@ class ArticleListRepository: BaseRepository<BasePagingRequest, BaseResponse<Arti
         }, { throwable ->
           callBack?.onError(throwable)
         })
-    }*/
+    }
   }
 }

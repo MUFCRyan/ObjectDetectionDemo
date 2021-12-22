@@ -51,7 +51,7 @@ class ArticleActivity : BaseActivity() {
           }
           tvTitle.text = article.title
           tvContent.text = article.content
-          tvDate.text = article.date
+          tvDate.text = article.getFormatData()
           article.summary?.let { summary ->
             summaryView.setData(summary)
           }

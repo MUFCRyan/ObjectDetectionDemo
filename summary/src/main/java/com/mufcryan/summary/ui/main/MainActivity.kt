@@ -117,6 +117,8 @@ class MainActivity : BasePagingActivity<ArticleBean, ArticleHolder>() {
       viewModel.getArticleList(nextPageNumber)
     } else if(!TextUtils.isEmpty(searchBar.text)) {
       viewModel.getSearchArticleList(searchBar.text.toString())
+    } else {
+      loadingView?.setLoadingEnable(false)
     }
   }
 
