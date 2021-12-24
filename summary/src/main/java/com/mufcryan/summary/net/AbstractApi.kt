@@ -6,6 +6,9 @@ import com.mufcryan.summary.common.bean.SummaryBean
 import com.mufcryan.base.bean.BaseResponse
 import retrofit2.http.GET
 import io.reactivex.Observable
+import okhttp3.RequestBody
+import retrofit2.http.Body
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface AbstractApi {
@@ -25,6 +28,6 @@ interface AbstractApi {
   fun getArticle(@Query("id") id: String): Observable<BaseResponse<ArticleBean>>
 
   @JvmSuppressWildcards
-  @GET("/dashboard/summary")
-  fun getSummary(@Query("input") input: String): Observable<BaseResponse<SummaryBean>>
+  @POST("/dashboard/summary")
+  fun getSummary(@Body body: RequestBody): Observable<BaseResponse<SummaryBean>>
 }

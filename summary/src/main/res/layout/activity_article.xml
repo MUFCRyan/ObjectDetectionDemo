@@ -53,6 +53,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
         android:layout_marginTop="10dp"
+        android:textIsSelectable="true"
         tools:text="正文"
         />
 

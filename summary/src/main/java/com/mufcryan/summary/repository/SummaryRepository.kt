@@ -1,6 +1,5 @@
 package com.mufcryan.summary.repository
 
-import com.google.gson.reflect.TypeToken
 import com.mufcryan.summary.common.bean.SummaryBean
 import com.mufcryan.base.BaseRepository
 import com.mufcryan.base.bean.BaseResponse
@@ -10,6 +9,9 @@ import com.mufcryan.summary.net.AbstractApi
 import com.mufcryan.util.GsonUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody
+import java.net.URLEncoder
 
 class SummaryRepository: BaseRepository<String, BaseResponse<SummaryBean>>() {
   companion object {
@@ -83,8 +85,12 @@ class SummaryRepository: BaseRepository<String, BaseResponse<SummaryBean>>() {
     callBack?.onSuccess(response)*/
 
     param?.let {
+      val map = LinkedHashMap<String, Any>()
+      map["text"] = URLEncoder.encode(it, "UTF-8")
+      val body = RequestBody.create("application/json; charset=utf-8".toMediaType(),
+          GsonUtil.getJsonString(map))
       NetManager.getApi(HostType.Abstract, AbstractApi::class.java)
-        .getSummary(it)
+        .getSummary(body)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe({ response ->
