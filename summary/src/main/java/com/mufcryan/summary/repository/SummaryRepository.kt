@@ -86,7 +86,7 @@ class SummaryRepository: BaseRepository<String, BaseResponse<SummaryBean>>() {
 
     param?.let {
       val map = LinkedHashMap<String, Any>()
-      map["text"] = URLEncoder.encode(it, "UTF-8")
+      map["text"] = it
       val body = RequestBody.create("application/json; charset=utf-8".toMediaType(),
           GsonUtil.getJsonString(map))
       NetManager.getApi(HostType.Abstract, AbstractApi::class.java)
