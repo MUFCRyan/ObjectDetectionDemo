@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Text_B12_T3"
-        android:text="点击生成摘要和词云"
+        android:text="生成摘要和词云"
         android:layout_marginTop="20dp"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
@@ -92,7 +92,7 @@
     android:layout_height="wrap_content"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     android:layout_gravity="center_horizontal"
     />
 </androidx.constraintlayout.widget.ConstraintLayout>

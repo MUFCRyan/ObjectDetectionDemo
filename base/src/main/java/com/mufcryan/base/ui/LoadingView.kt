@@ -19,7 +19,9 @@ class LoadingView: SwipeRefreshLayout, ILoading {
   }
 
   override fun endLoading() {
-    isRefreshing = false
+    postDelayed({
+      isRefreshing = false
+    }, 500)
   }
 
   private var onStartLoadingListener: Runnable? = null

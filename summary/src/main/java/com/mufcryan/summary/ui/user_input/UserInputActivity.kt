@@ -45,6 +45,7 @@ class UserInputActivity : BaseActivity() {
       } else {
         showErrorToast()
       }
+      onEndLoadData()
     })
   }
 
